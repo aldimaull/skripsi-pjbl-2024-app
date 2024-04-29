@@ -1,18 +1,20 @@
-import { List } from "@phosphor-icons/react/dist/ssr/List";
+import User from "@/components/User";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
   return (
     <>
-      <header className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl tracking-tight">
-          <span className="font-black">Project</span>ic
-        </h1>
-        <List color="#8f0000" size={32} weight="duotone" />
-      </header>
       <main>
-        <h2 className="text-xl font-bold">Login</h2>
+        <h2 className="text-xl font-bold">Judul</h2>
+        <Link href="/admin">Mulai</Link>
       </main>
-      <footer>Footer</footer>
+      <h2>Client session</h2>
+      <User />
+      <h2>Server session</h2>
+      {JSON.stringify(session)}
     </>
   );
 }
