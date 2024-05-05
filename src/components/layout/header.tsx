@@ -1,8 +1,5 @@
 import { authOptions } from "@/lib/auth";
-import { List } from "@phosphor-icons/react/dist/ssr/List";
 import { getServerSession } from "next-auth";
-import { buttonVariants } from "../ui/button";
-import Link from "next/link";
 import UserAccountNav from "../UserAccountNav";
 
 const Header = async () => {
@@ -10,17 +7,10 @@ const Header = async () => {
 
   return (
     <header className="flex justify-between items-center mb-4">
-      <h1 className="text-3xl tracking-tight">
+      <h2 className="text-3xl tracking-tight">
         <span className="font-black">Project</span>ic
-      </h1>
-      {session?.user ? (
-        <UserAccountNav />
-      ) : (
-        <Link className={buttonVariants()} href="login">
-          Login
-        </Link>
-      )}
-      <List size={32} weight="duotone" />
+      </h2>
+      {session?.user ? <UserAccountNav /> : null}
     </header>
   );
 };

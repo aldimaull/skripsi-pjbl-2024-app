@@ -55,7 +55,7 @@ export default function SignInForm() {
         variant: "destructive",
       });
     } else {
-      router.push("/admin");
+      router.push("/user");
       router.refresh();
     }
   };
