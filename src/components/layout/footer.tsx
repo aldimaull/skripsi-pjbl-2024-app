@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer>
+    <footer className="mt-auto">
       <hr className="grid grid-cols-3 mt-5" />
       <div className="grid grid-cols-3 my-5">
         <p className="text-3xl tracking-tight">

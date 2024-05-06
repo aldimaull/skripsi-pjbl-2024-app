@@ -62,7 +62,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} container py-4`}>
+      <body
+        className={`${inter.className} container py-4 flex flex-col min-h-screen`}
+      >
         <Provider>
           <ThemeProvider
             attribute="class"
