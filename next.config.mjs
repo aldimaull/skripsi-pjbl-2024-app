@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+import createMDX from "@next/mdx";
 
 // @ts-check
 import withSerwistInit from "@serwist/next";
@@ -15,6 +16,11 @@ const withSerwist = withSerwistInit({
 const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
-export default withSerwist(nextConfig);
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+});
+
+export default withSerwist(withMDX(nextConfig));

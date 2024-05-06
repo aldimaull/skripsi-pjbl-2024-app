@@ -62,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} `}>
+      <body className={`${inter.className} container py-4`}>
         <Provider>
           <ThemeProvider
             attribute="class"

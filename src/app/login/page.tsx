@@ -1,6 +1,7 @@
 "use client";
 import Form from "@/components/form/SignInForm";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -20,6 +21,15 @@ export default function Login() {
     <>
       <h2 className="text-xl font-bold">Login</h2>
       <Form />
+      <p className="mt-2">
+        Jika belum punya akun, silakan{" "}
+        <Link
+          href="/sign-up"
+          className="font-bold underline underline-offset-4"
+        >
+          Daftar disini
+        </Link>
+      </p>
     </>
   );
 }

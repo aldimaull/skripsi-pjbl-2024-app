@@ -94,10 +94,6 @@ export default function SignInForm() {
           />
         </div>
         <Button type="submit">Submit</Button>
-        <p>
-          Jika belum punya akun, silakan &nbsp;
-          <Link href="/sign-up">Daftar disini</Link>
-        </p>
       </form>
     </Form>
   );

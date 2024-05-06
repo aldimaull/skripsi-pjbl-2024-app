@@ -57,7 +57,7 @@ export const Materi = () => {
 };
 
 export const Project = () => {
-  const cardTitle: string = "sdfsdf";
+  const cardTitle: string = "Project";
 
   return (
     <CardDashboard title={cardTitle}>

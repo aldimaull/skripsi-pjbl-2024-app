@@ -135,10 +135,6 @@ export default function SignUpForm() {
           />
         </div>
         <Button type="submit">Submit</Button>
-        <p>
-          Jika sudah punya akun, silakan &nbsp;
-          <Link href="/login">Login disini</Link>
-        </p>
       </form>
     </Form>
   );
