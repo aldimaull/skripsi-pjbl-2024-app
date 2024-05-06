@@ -20,7 +20,7 @@ const classes = "lg:basis-1/2 shrink-0 my-2";
 export const Nilai = () => {
   const title = "Nilai";
   const cardTitle = "Project yang telah diselesaikan:";
-  const nilai = Math.random();
+  const nilai = ListMateri.length;
 
   return (
     <CardDashboard title={title}>
@@ -28,7 +28,9 @@ export const Nilai = () => {
         <CardHeader>
           <CardTitle>{cardTitle}</CardTitle>
         </CardHeader>
-        <CardContent>{nilai}</CardContent>
+        <CardContent className="text-right text-3xl font-black">
+          1 / <span className="text-primary">{nilai}</span>
+        </CardContent>
       </Card>
     </CardDashboard>
   );
@@ -82,7 +84,7 @@ export const Project = () => {
 const CardDashboard = ({ title, children }: Props) => {
   return (
     <div className="my-5">
-      <h3>{title}</h3>
+      <h3 className="font-bold text-primary">{title}</h3>
       <div className="flex overflow-x-auto justify-between space-x-2">
         {children}
       </div>

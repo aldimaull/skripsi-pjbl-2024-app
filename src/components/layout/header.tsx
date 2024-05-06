@@ -8,10 +8,10 @@ const Header = async () => {
 
   return (
     <header className="flex justify-between items-center mb-4">
-      <h2 className="text-3xl tracking-tight">
+      <h2 className="md:text-3xl sm:text-2xl text-xl tracking-tight">
         <span className="font-black">Project</span>ic
       </h2>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <DarkModeToggle />
         {session?.user ? <UserAccountNav /> : null}
       </div>
