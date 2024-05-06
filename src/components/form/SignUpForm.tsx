@@ -20,17 +20,18 @@ import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
+    name: z.string().min(3, { message: "Nama terlalu pendek" }).max(50),
     username: z
       .string()
-      .min(1, {
+      .min(8, {
         message: "Username harus terisi",
       })
-      .max(100),
+      .max(20),
     password: z
       .string()
       .min(8, { message: "Password terlalu pendek" })
       .max(20, { message: "Password terlalu panjang" }),
-    confirmPassword: z.string().min(1, "Konfirmasi password harus terisi"),
+    confirmPassword: z.string().min(8, "Konfirmasi password harus terisi"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -43,6 +44,7 @@ export default function SignUpForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: "",
       username: "",
       password: "",
       confirmPassword: "",
@@ -59,6 +61,7 @@ export default function SignUpForm() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name: values.name,
         username: values.username,
         password: values.password,
       }),
@@ -74,6 +77,20 @@ export default function SignUpForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
         <div className="space-y-2">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nama Lengkap</FormLabel>
+                <FormControl>
+                  <Input placeholder="Cth: Aldi Maulana" {...field} />
+                </FormControl>
+                <FormDescription>Masukkan nama lengkap Anda.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="username"

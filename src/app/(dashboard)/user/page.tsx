@@ -13,9 +13,7 @@ const page = async () => {
           <h1>Dashboard</h1>
           <h2>
             Halo, selamat datang kembali{" "}
-            <span className="text-primary font-bold">
-              {session?.user.username}
-            </span>
+            <span className="text-primary font-bold">{session?.user.name}</span>
             !
           </h2>
           <Nilai />

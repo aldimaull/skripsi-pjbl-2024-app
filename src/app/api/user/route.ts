@@ -4,12 +4,13 @@ import { hash } from "bcrypt";
 import z from "zod";
 
 const userSchema = z.object({
+  name: z.string().min(3, { message: "Nama terlalu pendek" }).max(50),
   username: z
     .string()
-    .min(1, {
+    .min(8, {
       message: "Username harus terisi",
     })
-    .max(100),
+    .max(20),
   password: z
     .string()
     .min(8, { message: "Password terlalu pendek" })
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const { username, password } = userSchema.parse(body);
+    const { name, username, password } = userSchema.parse(body);
 
     // cek username jika ada
     const existingUserByUsername = await db.user.findUnique({
@@ -37,6 +38,7 @@ export async function POST(req: Request) {
 
     const newUser = await db.user.create({
       data: {
+        name,
         username,
         password: hashedPassword,
       },

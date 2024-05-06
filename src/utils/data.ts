@@ -10,6 +10,7 @@ interface Project {
   deskripsi: string;
   ringkasan: string;
   link: string;
+  tenggat?: Date | number | string;
 }
 
 export const ListMateri: Materi[] = [
@@ -39,12 +40,26 @@ export const ListMateri: Materi[] = [
   },
 ];
 
+let date = new Date();
+const options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
 export const ListProject: Project[] = [
   {
     namaProject: "Project 1",
     deskripsi: "Deskripsi Project 1",
     ringkasan: "Ini ringkasan Project",
     link: "/project/coba",
+    tenggat: date.toLocaleDateString("id-ID", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }),
   },
   {
     namaProject: "Project 2",

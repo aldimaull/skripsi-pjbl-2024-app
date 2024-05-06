@@ -11,7 +11,7 @@ import Link from "next/link";
 import { ListMateri, ListProject } from "@/utils/data";
 
 interface Props {
-  title: "string";
+  title: string;
   children: ReactNode;
 }
 
@@ -57,10 +57,10 @@ export const Materi = () => {
 };
 
 export const Project = () => {
-  const title = "Project";
+  const cardTitle: string = "sdfsdf";
 
   return (
-    <CardDashboard title={title}>
+    <CardDashboard title={cardTitle}>
       {ListProject.map((project, index) => (
         <Link key={index} href={project.link} className={classes}>
           <Card>
@@ -71,6 +71,7 @@ export const Project = () => {
             <CardContent>
               <p>{project.ringkasan}</p>
             </CardContent>
+            <CardFooter>Tenggat waktu: {String(project.tenggat)}</CardFooter>
           </Card>
         </Link>
       ))}
