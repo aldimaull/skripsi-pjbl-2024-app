@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const APP_NAME = "M-PjBL";
 const APP_DEFAULT_TITLE = "Mobile-Project Based Learning";
-const APP_TITLE_TEMPLATE = "%s - PWA App";
+const APP_TITLE_TEMPLATE = "%s - M-PjBL";
 const APP_DESCRIPTION = "Skripsi Aldi Maulana";
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   description: APP_DESCRIPTION,
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: APP_DEFAULT_TITLE,
     // startUpImage: [],
   },
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
+  themeColor: "???",
 };
 
 export default function RootLayout({
