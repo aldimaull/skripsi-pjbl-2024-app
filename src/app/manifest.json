@@ -3,14 +3,14 @@
   "short_name": "Projectic",
   "icons": [
     {
-      "src": "/icons/vercel.svg",
+      "purpose": "maskable",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
+      "src": "/icons/vercel.svg",
+      "type": "image/png"
     },
     {
-      "src": "/icons/vercel.svg",
       "sizes": "512x512",
+      "src": "/icons/vercel.svg",
       "type": "image/png"
     }
   ],

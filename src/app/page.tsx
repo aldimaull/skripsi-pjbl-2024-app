@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <h1 className="text-xl font-bold">Judul</h1>
