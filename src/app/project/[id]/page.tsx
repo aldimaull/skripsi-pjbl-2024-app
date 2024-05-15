@@ -1,8 +1,7 @@
-export default function Project({params}){
-    console.log(params);
+export default function Project(){
     return (
         <>
-            <h1>Projects {params.id}</h1>
+            <h1>Projects</h1>
         </>
     )
 }
