@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { ListMateri, ListProject } from "@/utils/data";
+import { Button } from "../ui/button";
 
 interface Props {
   title: string;
@@ -48,9 +49,9 @@ export const Materi = () => {
               <CardTitle>{materi.namaMateri}</CardTitle>
               <CardDescription>{materi.deskripsi}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <p>{materi.ringkasan}</p>
-            </CardContent>
+            <CardFooter>
+              <Button variant="outline">Lihat Materi</Button>
+            </CardFooter>
           </Card>
         </Link>
       ))}
@@ -68,10 +69,10 @@ export const Project = () => {
           <Card>
             <CardHeader>
               <CardTitle>{project.namaProject}</CardTitle>
-              <CardDescription>{project.deskripsi}</CardDescription>
+              <CardDescription>{project.ringkasan}</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>{project.ringkasan}</p>
+              <p>{project.deskripsi}</p>
             </CardContent>
             <CardFooter>Tenggat waktu: {String(project.tenggat)}</CardFooter>
           </Card>

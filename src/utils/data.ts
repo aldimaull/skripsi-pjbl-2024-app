@@ -6,19 +6,23 @@ interface Materi {
 }
 
 interface Project {
+  idProject: string;
   namaProject: string;
   deskripsi: string;
   ringkasan: string;
   link: string;
   tenggat?: Date | number | string;
+  content: string;
 }
 
 export const ListMateri: Materi[] = [
   {
-    namaMateri: "Materi 1",
-    deskripsi: "Deskripsi Materi 1",
-    ringkasan: "Ini ringkasan materi",
-    link: "/materi",
+    namaMateri: "Array",
+    deskripsi:
+      "Array adalah struktur data yang menyimpan sekumpulan elemen bertipe sama dalam satu variabel yang diakses menggunakan indeks.",
+    ringkasan:
+      "Array memungkinkan penyimpanan dan pengelolaan data yang efisien melalui operasi traversing, pencarian, pengurutan, penambahan, dan penghapusan elemen, serta mendukung bentuk data kompleks seperti matriks.",
+    link: "/materi/array",
   },
   {
     namaMateri: "Materi 2",
@@ -40,43 +44,50 @@ export const ListMateri: Materi[] = [
   },
 ];
 
-let date = new Date();
-const options = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
+function tanggal(heum: Date) {
+  return heum.toLocaleDateString("id-ID", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
 
 export const ListProject: Project[] = [
   {
-    namaProject: "Project 1",
+    idProject: "1",
+    namaProject: "Palindrom",
     deskripsi: "Deskripsi Project 1",
     ringkasan: "Ini ringkasan Project",
-    link: "/project/coba",
-    tenggat: date.toLocaleDateString("id-ID", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    }),
+    link: "/project/palindrom",
+    tenggat: tanggal(new Date("2024-05-20")),
+    content: "/project/coba.mdx",
   },
   {
-    namaProject: "Project 2",
-    deskripsi: "Deskripsi Project 1",
+    idProject: "2",
+    namaProject: "Reverse",
+    deskripsi: "Deskripsi Project 2",
     ringkasan: "Ini ringkasan Project",
-    link: "/project/coba",
+    link: "/project/reverse",
+    tenggat: tanggal(new Date("2024-05-30")),
+    content: "/project/coba2.mdx",
   },
   {
-    namaProject: "Project 1",
-    deskripsi: "Deskripsi Project 1",
+    idProject: "3",
+    namaProject: "Antri",
+    deskripsi: "Deskripsi Project 3",
     ringkasan: "Ini ringkasan Project",
-    link: "/project/coba",
+    link: "/project/array",
+    tenggat: tanggal(new Date("2024-6-5")),
+    content: "/project/coba.mdx",
   },
   {
-    namaProject: "Project 1",
-    deskripsi: "Deskripsi Project 1",
+    idProject: "4",
+    namaProject: "Cuaca",
+    deskripsi: "Deskripsi Project 4",
     ringkasan: "Ini ringkasan Project",
-    link: "/project/coba",
+    link: "/project/larik",
+    tenggat: tanggal(new Date("2024-6-10")),
+    content: "/project/coba.mdx",
   },
 ];

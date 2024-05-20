@@ -7,15 +7,21 @@ import { Switch } from "@/components/ui/switch";
 import { MoonIcon } from "@radix-ui/react-icons";
 
 export default function ModeToggle() {
-  const { setTheme, theme } = useTheme();
+  const [isChecked, setIsChecked] = React.useState(true);
+  const { theme, setTheme } = useTheme();
+  const toggleMode = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+    setIsChecked(!isChecked);
+  };
 
   return (
     <div className="flex items-center gap-2">
       <MoonIcon className="h-[1.2rem] w-[1.2rem]" />
       <Switch
         id="dark-mode"
-        checked={theme === "dark" ? true : false}
-        onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+        checked={isChecked}
+        defaultChecked={isChecked}
+        onCheckedChange={toggleMode}
       />
     </div>
   );
