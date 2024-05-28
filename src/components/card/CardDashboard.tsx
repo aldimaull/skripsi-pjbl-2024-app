@@ -16,7 +16,8 @@ interface Props {
   children: ReactNode;
 }
 
-const classes = "lg:basis-1/2 shrink-0 my-2";
+const classes =
+  "flex flex-col justify-between lg:basis-1/2 shrink-0 my-2 max-w-full";
 
 export const Nilai = () => {
   const title = "Nilai";
@@ -25,7 +26,7 @@ export const Nilai = () => {
 
   return (
     <CardDashboard title={title}>
-      <Card className="my-2">
+      <Card className="my-2 bg-secondary">
         <CardHeader>
           <CardTitle>{cardTitle}</CardTitle>
         </CardHeader>
@@ -43,17 +44,19 @@ export const Materi = () => {
   return (
     <CardDashboard title={title}>
       {ListMateri.map((materi, index) => (
-        <Link key={index} href={materi.link} className={classes}>
-          <Card>
-            <CardHeader>
-              <CardTitle>{materi.namaMateri}</CardTitle>
-              <CardDescription>{materi.deskripsi}</CardDescription>
-            </CardHeader>
-            <CardFooter>
+        <Card key={index} className={`bg-secondary ${classes}`}>
+          <CardHeader>
+            <CardTitle>{materi.namaMateri}</CardTitle>
+            <CardDescription className="line-clamp-2">
+              {materi.deskripsi}
+            </CardDescription>
+          </CardHeader>
+          <CardFooter>
+            <Link href={materi.link}>
               <Button variant="outline">Lihat Materi</Button>
-            </CardFooter>
-          </Card>
-        </Link>
+            </Link>
+          </CardFooter>
+        </Card>
       ))}
     </CardDashboard>
   );
@@ -65,15 +68,18 @@ export const Project = () => {
   return (
     <CardDashboard title={cardTitle}>
       {ListProject.map((project, index) => (
-        <Link key={index} href={project.link} className={classes}>
-          <Card>
+        <Link
+          key={index}
+          href={`\\project\\${project.idProject}`}
+          className={classes}
+        >
+          <Card className="bg-secondary hover:bg-accent hover:shadow-sm hover:shadow-primary transition-all ease-in-out">
             <CardHeader>
               <CardTitle>{project.namaProject}</CardTitle>
-              <CardDescription>{project.ringkasan}</CardDescription>
+              <CardDescription className="line-clamp-2">
+                {project.deskripsi}
+              </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p>{project.deskripsi}</p>
-            </CardContent>
             <CardFooter>Tenggat waktu: {String(project.tenggat)}</CardFooter>
           </Card>
         </Link>

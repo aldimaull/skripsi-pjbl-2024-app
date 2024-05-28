@@ -61,7 +61,7 @@ export const ListProject: Project[] = [
     ringkasan: "Ini ringkasan Project",
     link: "/project/palindrom",
     tenggat: tanggal(new Date("2024-05-20")),
-    content: "/project/coba.mdx",
+    content: "palindrom",
   },
   {
     idProject: "2",
@@ -70,7 +70,7 @@ export const ListProject: Project[] = [
     ringkasan: "Ini ringkasan Project",
     link: "/project/reverse",
     tenggat: tanggal(new Date("2024-05-30")),
-    content: "/project/coba2.mdx",
+    content: "palindrom",
   },
   {
     idProject: "3",
@@ -79,7 +79,7 @@ export const ListProject: Project[] = [
     ringkasan: "Ini ringkasan Project",
     link: "/project/array",
     tenggat: tanggal(new Date("2024-6-5")),
-    content: "/project/coba.mdx",
+    content: "palindrom",
   },
   {
     idProject: "4",
@@ -88,6 +88,6 @@ export const ListProject: Project[] = [
     ringkasan: "Ini ringkasan Project",
     link: "/project/larik",
     tenggat: tanggal(new Date("2024-6-10")),
-    content: "/project/coba.mdx",
+    content: "palindrom",
   },
 ];
