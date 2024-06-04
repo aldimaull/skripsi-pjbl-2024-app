@@ -22,7 +22,7 @@ export default async function Project({ params }: { params: { id: string } }) {
           {ListProject.find((project) => project.idProject === params.id) ? (
             <>
               <h2 className="mb-2 font-semibold">{title}</h2>
-              <p className="bg-secondary px-5 py-8 rounded-md">
+              <p className="bg-secondary px-5 py-6 rounded-md">
                 {deskripsi} Lorem ipsum dolor sit amet consectetur adipisicing
                 elit. Tenetur quia quisquam, mollitia magni accusantium
                 necessitatibus nisi, distinctio voluptatibus perferendis dolore

@@ -21,13 +21,13 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  username: z.string().min(8, {
+    message: "Username harus terdiri dari minimal 8 karakter.",
   }),
   password: z
     .string()
-    .min(8, { message: "Password terlalu pendek" })
-    .max(20, { message: "Password terlalu panjang" }),
+    .min(8, { message: "Password harus terdiri dari minimal 8 karakter" })
+    .max(20, { message: "Password harus terdiri dari maksimal 20 karakter" }),
 });
 
 export default function SignInForm() {
