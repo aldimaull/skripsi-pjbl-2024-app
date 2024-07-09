@@ -17,6 +17,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 
+interface ProjectFormProps {
+  namaProject: string;
+  userId: { user: { name: string } };
+}
+
 const formSchema = z.object({
   name: z
     .string()
@@ -51,15 +56,17 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
   }
 };
 
-const ProjectForm = (title, userId) => {
+const ProjectForm: React.FC<ProjectFormProps> = ({ namaProject, userId }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: title.namaProject,
+      name: namaProject,
       description: "",
-      user: title.userId.user.name,
+      user: userId.user.name,
     },
   });
+  console.log(namaProject);
+  console.log(userId);
 
   return (
     <Form {...form}>
@@ -73,8 +80,8 @@ const ProjectForm = (title, userId) => {
                 <FormLabel>Nama Project</FormLabel>
                 <FormControl>
                   <Input
-                    defaultValue={title.namaProject}
-                    placeholder={title.namaProject}
+                    defaultValue={namaProject}
+                    placeholder={namaProject}
                     disabled
                   />
                 </FormControl>
@@ -91,8 +98,8 @@ const ProjectForm = (title, userId) => {
                 <FormLabel>Nama</FormLabel>
                 <FormControl>
                   <Input
-                    defaultValue={title.userId.user.name}
-                    placeholder={title.userId.user.name}
+                    defaultValue={userId.user.name}
+                    placeholder={userId.user.name}
                     disabled
                   />
                 </FormControl>
