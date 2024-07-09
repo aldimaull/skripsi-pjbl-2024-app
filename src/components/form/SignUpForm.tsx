@@ -15,12 +15,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
-    name: z.string().min(3, { message: "Nama terlalu pendek, minimal 3 karakter"}).max(50, { message: "Nama terlalu panjang, maksimal 50 karakter"}),
+    name: z
+      .string()
+      .min(3, { message: "Nama terlalu pendek, minimal 3 karakter" })
+      .max(50, { message: "Nama terlalu panjang, maksimal 50 karakter" }),
     username: z
       .string()
       .min(8, {
@@ -89,9 +91,12 @@ export default function SignUpForm() {
                   <Input placeholder="Cth: Aldi Maulana" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Masukkan nama lengkap Anda.<br />
-                  *Nama harus berisi minimal 3 karakter.<br />
-                  *Nama harus berisi maksimal 20 karakter.<br />
+                  Masukkan nama lengkap Anda.
+                  <br />
+                  *Nama harus berisi minimal 3 karakter.
+                  <br />
+                  *Nama harus berisi maksimal 20 karakter.
+                  <br />
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -107,9 +112,12 @@ export default function SignUpForm() {
                   <Input placeholder="Cth: aldimaul" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Masukkan username Anda.<br />
-                  *Username harus berisi minimal 8 karakter.<br />
-                  *Username harus berisi maksimal 20 karakter.<br />
+                  Masukkan username Anda.
+                  <br />
+                  *Username harus berisi minimal 8 karakter.
+                  <br />
+                  *Username harus berisi maksimal 20 karakter.
+                  <br />
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -125,9 +133,12 @@ export default function SignUpForm() {
                   <Input type="password" placeholder="Password" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Masukkan password Anda.<br />
-                  *Password harus berisi minimal 8 karakter.<br />
-                  *Password harus berisi maksimal 20 karakter.<br />
+                  Masukkan password Anda.
+                  <br />
+                  *Password harus berisi minimal 8 karakter.
+                  <br />
+                  *Password harus berisi maksimal 20 karakter.
+                  <br />
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -143,9 +154,10 @@ export default function SignUpForm() {
                   <Input type="password" placeholder="Password" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Masukkan ulang password anda.<br />
+                  Masukkan ulang password anda.
+                  <br />
                   *Konfirmasi password anda.
-                  </FormDescription>
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

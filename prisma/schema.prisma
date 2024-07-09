@@ -20,14 +20,16 @@ model User {
   password  String
   updateAt  DateTime @updatedAt
   username  String   @unique @db.VarChar(255)
+  projects  Project[]
 }
 
-model Materi {
+model Project {
   id        Int      @id @default(autoincrement())
   name      String   @default("") @db.VarChar(255)
-  path      String
+  description String
+  userId    Int      @unique
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
-  content   String?
+  user      User     @relation(fields: [userId], references: [id])
 }
 
