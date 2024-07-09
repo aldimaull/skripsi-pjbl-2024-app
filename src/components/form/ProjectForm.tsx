@@ -65,8 +65,6 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ namaProject, userId }) => {
       user: userId.user.name,
     },
   });
-  console.log(namaProject);
-  console.log(userId);
 
   return (
     <Form {...form}>
