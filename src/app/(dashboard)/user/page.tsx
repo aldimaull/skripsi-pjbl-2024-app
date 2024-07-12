@@ -1,7 +1,12 @@
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import React from "react";
-import { Materi, Project, Nilai } from "@/components/card/CardDashboard";
+import {
+  Materi,
+  Project,
+  Nilai,
+  TookProject,
+} from "@/components/card/CardDashboard";
 import NoSession from "@/components/error/NoSession";
 
 const page = async () => {
@@ -16,6 +21,7 @@ const page = async () => {
           <span className="text-primary font-bold">{session?.user.name}</span>!
         </h2>
         <Nilai />
+        <TookProject />
         <Materi />
         <Project />
       </>

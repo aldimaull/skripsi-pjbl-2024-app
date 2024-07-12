@@ -10,6 +10,9 @@ import {
 import Link from "next/link";
 import { ListMateri, ListProject } from "@/utils/data";
 import { Button } from "../ui/button";
+import { db } from "@/lib/db";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
 interface Props {
   title: string;
@@ -34,6 +37,42 @@ export const Nilai = () => {
           1 / <span className="text-primary">{nilai}</span>
         </CardContent>
       </Card>
+    </CardDashboard>
+  );
+};
+
+export const TookProject = async () => {
+  const cardTitle: string = "Project yang Sedang Dikerjakan";
+  const session = await getServerSession(authOptions);
+  const user: number = Number(session?.user.id);
+  const projects = await db.project.findMany({
+    where: {
+      userId: user,
+    },
+  });
+
+  return (
+    <CardDashboard title={cardTitle}>
+      {projects.length > 0 ? (
+        projects.map((project, index) => (
+          <Card key={index} className={`bg-secondary ${classes}`}>
+            <CardHeader>
+              <CardTitle>{project.name}</CardTitle>
+              <CardDescription className="line-clamp-2">
+                {project.description}
+              </CardDescription>
+            </CardHeader>
+            <CardFooter className="justify-between">
+              Tenggat waktu: <br /> {String(project.description)}
+              <Link href="#">
+                <Button variant="outline">Lihat Project</Button>
+              </Link>
+            </CardFooter>
+          </Card>
+        ))
+      ) : (
+        <p>Tidak ada project yang sedang diambil</p>
+      )}
     </CardDashboard>
   );
 };

@@ -3,17 +3,15 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const { name, description, user } = await req.json();
+    const userInt = parseInt(user);
 
-    const { name, description, user } = JSON.parse(body);
-
-    // cek username jika ada
     const existingProjectByProjectName = await db.project.findUnique({
-      where: { userId: user },
+      where: { userId: userInt },
     });
     if (existingProjectByProjectName) {
       return NextResponse.json(
-        { project: null, error: "Project sudah diambil" },
+        { project: null, error: "Project sudah diambil", status: 409 },
         { status: 409 }
       );
     }
@@ -22,12 +20,12 @@ export async function POST(req: Request) {
       data: {
         name,
         description,
-        user,
+        userId: userInt,
       },
     });
 
     return NextResponse.json(
-      { project: newProject, message: "Berhasil mendaftar" },
+      { project: newProject, message: "Berhasil mendaftar", status: 201 },
       { status: 201 }
     );
   } catch (error) {
