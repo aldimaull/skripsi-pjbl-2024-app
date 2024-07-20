@@ -14,6 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 
@@ -36,6 +43,7 @@ const formSchema = z
       .min(8, { message: "Password harus terdiri dari minimal 8 karakter" })
       .max(20, { message: "Password harus terdiri dari maksimal 20 karakter" }),
     confirmPassword: z.string().min(8, "Password harus terisi"),
+    role: z.enum(["SISWA", "GURU"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -68,6 +76,7 @@ export default function SignUpForm() {
         name: values.name,
         username: values.username,
         password: values.password,
+        role: values.role,
       }),
     });
     if (response.ok) {
@@ -80,7 +89,7 @@ export default function SignUpForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-        <div className="space-y-2">
+        <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
           <FormField
             control={form.control}
             name="name"
@@ -158,6 +167,30 @@ export default function SignUpForm() {
                   <br />
                   *Konfirmasi password anda.
                 </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="role"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Role</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Saya masuk sebagai.." />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="GURU">Guru</SelectItem>
+                    <SelectItem value="SISWA">Siswa</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}

@@ -11,7 +11,6 @@ import NoSession from "@/components/error/NoSession";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
-
   if (session?.user) {
     return (
       <>

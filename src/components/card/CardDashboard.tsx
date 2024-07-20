@@ -62,10 +62,12 @@ export const TookProject = async () => {
                 {project.description}
               </CardDescription>
             </CardHeader>
-            <CardFooter className="justify-between">
+            <CardFooter className="justify-between text-xs md:text-sm lg:text-base">
               Tenggat waktu: <br /> {String(project.description)}
               <Link href="#">
-                <Button variant="outline">Lihat Project</Button>
+                <Button variant="outline" size="md">
+                  Lihat Project
+                </Button>
               </Link>
             </CardFooter>
           </Card>
@@ -92,7 +94,9 @@ export const Materi = () => {
           </CardHeader>
           <CardFooter>
             <Link href={materi.link}>
-              <Button variant="outline">Lihat Materi</Button>
+              <Button variant="outline" size="md">
+                Lihat Materi
+              </Button>
             </Link>
           </CardFooter>
         </Card>
@@ -119,7 +123,9 @@ export const Project = () => {
                 {project.deskripsi}
               </CardDescription>
             </CardHeader>
-            <CardFooter>Tenggat waktu: {String(project.tenggat)}</CardFooter>
+            <CardFooter className="text-xs md:text-sm lg:text-base">
+              Tenggat waktu: <br /> {String(project.tenggat)}
+            </CardFooter>
           </Card>
         </Link>
       ))}

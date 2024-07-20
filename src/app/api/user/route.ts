@@ -15,13 +15,14 @@ const userSchema = z.object({
     .string()
     .min(8, { message: "Password terlalu pendek" })
     .max(20, { message: "Password terlalu panjang" }),
+  role: z.enum(["SISWA", "GURU"]),
 });
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const { name, username, password } = userSchema.parse(body);
+    const { name, username, password, role } = userSchema.parse(body);
 
     // cek username jika ada
     const existingUserByUsername = await db.user.findUnique({
@@ -41,6 +42,7 @@ export async function POST(req: Request) {
         name,
         username,
         password: hashedPassword,
+        role,
       },
     });
 

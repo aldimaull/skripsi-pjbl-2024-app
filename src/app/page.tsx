@@ -14,7 +14,7 @@ export default function Home() {
         di Genggaman Anda.
       </h1> */}
       <div className="flex space-x-4">
-        <Link href="/login">
+        <Link href="/user">
           <Button>Mulai!</Button>
         </Link>
         <Link href="https://github.com/aldimaull/skripsi-pjbl-2024-app">
