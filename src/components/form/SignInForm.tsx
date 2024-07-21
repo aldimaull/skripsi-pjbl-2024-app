@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
@@ -56,7 +55,6 @@ export default function SignInForm() {
       });
     } else {
       router.push("/user");
-      router.refresh();
     }
   };
 
@@ -93,7 +91,7 @@ export default function SignInForm() {
             )}
           />
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Login</Button>
       </form>
     </Form>
   );

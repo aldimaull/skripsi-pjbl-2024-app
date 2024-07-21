@@ -1,11 +1,12 @@
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+"use client";
+
+import { useSession } from "next-auth/react";
 import UserAccountNav from "../UserAccountNav";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import Link from "next/link";
 
-const Header = async () => {
-  const session = await getServerSession(authOptions);
+const Header = () => {
+  const { data: session } = useSession();
 
   return (
     <header className="flex justify-between items-center mb-4">
