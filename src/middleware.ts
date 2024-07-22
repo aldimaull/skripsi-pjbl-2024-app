@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
 
   const token = await getToken({ req: request });
 
-  if (!token) return NextResponse.redirect(new URL("/login", request.url));
+  if (!token) return;
 
   // Check the role and redirect based on the role
   switch (token.role) {
