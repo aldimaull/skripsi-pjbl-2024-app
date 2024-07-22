@@ -35,7 +35,7 @@ export async function middleware(request: NextRequest) {
       }
       break;
     default:
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/", request.url));
   }
 }
 
