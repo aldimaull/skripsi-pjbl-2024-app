@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: 30 100% 100%;
+  --background: 30 8% 95%;
   --foreground: 30 5% 10%;
   --card: 30 50% 100%;
   --card-foreground: 30 5% 15%;
@@ -57,25 +57,46 @@
 
   main {
     h1 {
-      @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+      @apply scroll-m-20 text-3xl lg:text-4xl font-extrabold tracking-tight;
     }
     h2 {
-      @apply scroll-m-20 lg:text-3xl text-xl font-medium tracking-tight first:mt-0;
+      @apply scroll-m-20 text-xl lg:text-2xl font-extrabold tracking-tight;
     }
     h3 {
-      @apply scroll-m-20 lg:text-2xl text-lg tracking-tight;
+      @apply scroll-m-20 text-base lg:text-lg font-semibold tracking-tight;
     }
-    /* article code {
-      @apply bg-red-500 text-accent-foreground px-1 rounded-md text-base md:text-lg lg:text-lg xl:text-xl 2xl:text-2xl subpixel-antialiased font-mono;
-    } */
-    article pre {
-      @apply bg-accent text-accent-foreground p-4 rounded-3xl overflow-auto font-mono !important;
-    }
-    article pre::-webkit-scrollbar {
-      @apply overflow-x-scroll;
-    }
-    article pre code {
-      @apply px-1 rounded-md text-base md:text-lg lg:text-lg xl:text-xl 2xl:text-2xl subpixel-antialiased font-mono;
+    article {
+      h1 {
+        @apply my-1 text-xl lg:text-2xl font-extrabold text-primary;
+      }
+      h2 {
+        @apply my-1 text-xl lg:text-2xl font-bold text-primary;
+      }
+      h3 {
+        @apply my-1 text-xl lg:text-2xl font-medium text-primary;
+      }
+      h4 {
+        @apply my-1 text-sm lg:text-base font-extrabold uppercase text-primary;
+      }
+      h5 {
+        @apply my-1 text-sm lg:text-base font-bold uppercase text-primary;
+      }
+      h6 {
+        @apply my-1 text-sm lg:text-base font-medium uppercase;
+      }
+      p {
+        @apply my-2 text-base lg:text-lg text-pretty;
+      }
+      pre {
+        @apply my-2 bg-zinc-200 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-200 rounded overflow-auto !important;
+
+        code {
+          @apply px-1 rounded-md text-xs md:text-base subpixel-antialiased font-mono;
+        }
+      }
+      pre::-webkit-scrollbar {
+        @apply overflow-x-scroll;
+      }
     }
   }
 }

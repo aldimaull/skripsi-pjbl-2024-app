@@ -103,7 +103,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ namaProject, userId }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-        <div className="flex space-x-2">
+        <div className="flex space-x-0 flex-col lg:flex-row lg:justify-start lg:space-x-2 space-y-2 lg:space-y-0">
           <FormField
             control={form.control}
             name="name"
@@ -153,7 +153,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ namaProject, userId }) => {
                         id="date"
                         variant={"outline"}
                         className={cn(
-                          "w-[300px] justify-start text-left font-normal",
+                          "w-[250px] justify-start text-left font-normal",
                           !field.value && "text-muted-foreground"
                         )}
                       >

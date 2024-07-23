@@ -135,8 +135,8 @@ export const Project = () => {
 
 const CardDashboard = ({ title, children }: Props) => {
   return (
-    <div className="my-5">
-      <h3 className="font-bold text-primary">{title}</h3>
+    <div className="my-4">
+      <h2 className="font-bold text-primary">{title}</h2>
       <div className="flex overflow-x-auto justify-between space-x-2">
         {children}
       </div>

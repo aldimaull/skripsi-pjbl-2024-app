@@ -18,7 +18,7 @@ export default async function Project({ params }: { params: { id: string } }) {
   if (session?.user) {
     return (
       <>
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           <h1 className="mb-4 text-primary">Detail Project</h1>
           {ListProject.find((project) => project.idProject === params.id) ? (
             <>
