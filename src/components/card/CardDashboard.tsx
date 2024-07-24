@@ -8,11 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { ListMateri, ListProject } from "@/utils/data";
 import { Button } from "../ui/button";
 import { db } from "@/lib/db";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import { slugify } from "@/lib/utils";
 
 interface Props {
   title: string;
@@ -25,7 +25,6 @@ const classes =
 export const Nilai = () => {
   const title = "Nilai";
   const cardTitle = "Project yang telah diselesaikan:";
-  const nilai = ListMateri.length;
 
   return (
     <CardDashboard title={title}>
@@ -34,7 +33,7 @@ export const Nilai = () => {
           <CardTitle>{cardTitle}</CardTitle>
         </CardHeader>
         <CardContent className="text-right text-3xl font-black">
-          1 / <span className="text-primary">{nilai}</span>
+          1 / <span className="text-primary">4</span>
         </CardContent>
       </Card>
     </CardDashboard>
@@ -58,13 +57,13 @@ export const TookProject = async () => {
           <Card key={index} className={`bg-secondary ${classes}`}>
             <CardHeader>
               <CardTitle>{project.name}</CardTitle>
-              <CardDescription className="line-clamp-2">
-                {project.description}
-              </CardDescription>
             </CardHeader>
             <CardFooter className="justify-between text-xs md:text-sm lg:text-base">
-              Tenggat waktu: <br /> {String(project.description)}
-              <Link href="#">
+              Tenggat waktu: <br /> {project.deadlineFrom.toLocaleDateString()}{" "}
+              - {project.deadlineTo.toLocaleDateString()}
+              <Link
+                href={`\\project\\${project.userId}\\${slugify(project.name)}`}
+              >
                 <Button variant="outline" size="md">
                   Lihat Project
                 </Button>
@@ -79,21 +78,22 @@ export const TookProject = async () => {
   );
 };
 
-export const Materi = () => {
+export const Materi = async () => {
   const title = "Materi";
+  const materi = await db.materiList.findMany();
 
   return (
     <CardDashboard title={title}>
-      {ListMateri.map((materi, index) => (
+      {materi.map((materi, index) => (
         <Card key={index} className={`bg-secondary ${classes}`}>
           <CardHeader>
-            <CardTitle>{materi.namaMateri}</CardTitle>
+            <CardTitle>{materi.name}</CardTitle>
             <CardDescription className="line-clamp-2">
-              {materi.deskripsi}
+              {materi.description}
             </CardDescription>
           </CardHeader>
           <CardFooter>
-            <Link href={materi.link}>
+            <Link href={`/materi/${materi.id}`}>
               <Button variant="outline" size="md">
                 Lihat Materi
               </Button>
@@ -105,26 +105,23 @@ export const Materi = () => {
   );
 };
 
-export const Project = () => {
+export const Project = async () => {
   const cardTitle: string = "Project";
+  const project = await db.projectList.findMany();
 
   return (
     <CardDashboard title={cardTitle}>
-      {ListProject.map((project, index) => (
-        <Link
-          key={index}
-          href={`\\project\\${project.idProject}`}
-          className={classes}
-        >
+      {project.map((project, index) => (
+        <Link key={index} href={`\\project\\${project.id}`} className={classes}>
           <Card className="bg-secondary hover:bg-accent hover:shadow-sm hover:shadow-primary transition-all ease-in-out">
             <CardHeader>
-              <CardTitle>{project.namaProject}</CardTitle>
+              <CardTitle>{project.name}</CardTitle>
               <CardDescription className="line-clamp-2">
-                {project.deskripsi}
+                {project.description}
               </CardDescription>
             </CardHeader>
             <CardFooter className="text-xs md:text-sm lg:text-base">
-              Tenggat waktu: <br /> {String(project.tenggat)}
+              Tenggat waktu: <br /> {project.deadline.toLocaleDateString()}
             </CardFooter>
           </Card>
         </Link>

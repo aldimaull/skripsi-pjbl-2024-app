@@ -23,6 +23,10 @@
   --input: 30 30% 50%;
   --ring: 30 100% 52%;
   --radius: 0.5rem;
+
+  .container {
+    background-image: url(../../public/bg.svg);
+  }
 }
 .dark {
   --background: 30 50% 10%;
@@ -45,6 +49,10 @@
   --input: 30 30% 50%;
   --ring: 30 100% 52%;
   --radius: 0.5rem;
+
+  .container {
+    background-image: url(../../public/bg-dark.svg);
+  }
 }
 
 @layer base {
@@ -87,9 +95,11 @@
       p {
         @apply my-2 text-base lg:text-lg text-pretty;
       }
+      img {
+        @apply my-4 mx-auto rounded-xl;
+      }
       pre {
-        @apply my-2 bg-zinc-200 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-200 rounded overflow-auto !important;
-
+        @apply px-4 py-2 my-2 bg-zinc-200 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-200 rounded overflow-auto !important;
         code {
           @apply px-1 rounded-md text-xs md:text-base subpixel-antialiased font-mono;
         }

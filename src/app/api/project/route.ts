@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { name, description, user } = await req.json();
+    const { name, deadlineFrom, deadlineTo, user } = await req.json();
     const userInt = parseInt(user);
 
     const existingProjectByProjectName = await db.project.findUnique({
@@ -19,7 +19,8 @@ export async function POST(req: Request) {
     const newProject = await db.project.create({
       data: {
         name,
-        description,
+        deadlineFrom,
+        deadlineTo,
         userId: userInt,
       },
     });

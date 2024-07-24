@@ -1,16 +1,11 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
 }
 
-// datasource db {
-//   provider = "mysql"
-//   url      = env("DATABASE_URL")
-// }
-
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider      = "postgresql"
+  url           = env("DATABASE_URL")
+  directUrl     = env("DIRECT_URL")
 }
 
 enum UserRole {
@@ -20,23 +15,42 @@ enum UserRole {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  name      String   @default("") @db.VarChar(255)
-  password  String
-  updateAt  DateTime @updatedAt
-  username  String   @unique @db.VarChar(255)
-  projects  Project[]
-  role      UserRole @default(SISWA)
+  id            Int      @id @default(autoincrement())
+  createdAt     DateTime @default(now())
+  name          String   @default("") @db.VarChar(255)
+  password      String
+  updateAt      DateTime @updatedAt
+  username      String   @unique @db.VarChar(255)
+  projects      Project[]
+  role          UserRole @default(SISWA)
 }
 
 model Project {
-  id        Int      @id @default(autoincrement())
-  name      String   @default("") @db.VarChar(255)
-  description String
-  userId    Int      @unique
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
+  id            Int      @id @default(autoincrement())
+  name          String   @default("") @db.VarChar(255)
+  userId        Int      @unique
+  deadlineFrom  DateTime
+  deadlineTo    DateTime
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id])
 }
 
+model ProjectList {
+  id            Int      @id @default(autoincrement())
+  name          String   @default("") @db.VarChar(255)
+  description   String
+  deadline      DateTime
+  content       String
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
+}
+
+model MateriList {
+  id            Int      @id @default(autoincrement())
+  name          String   @default("") @db.VarChar(255)
+  description   String
+  content       String
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
+}

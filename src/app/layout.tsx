@@ -61,6 +61,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const style: React.CSSProperties = {
+    maskImage: "linear-gradient(transparent, black)",
+  };
   return (
     <html lang="en">
       <body

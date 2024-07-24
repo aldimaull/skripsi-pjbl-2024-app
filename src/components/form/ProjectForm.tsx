@@ -29,9 +29,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+import { slugify } from "@/lib/utils";
+
 interface ProjectFormProps {
   namaProject: string;
   userId: { user: { name: string; id: string } };
+  idProject: string;
 }
 
 const formSchema = z.object({
@@ -39,7 +42,7 @@ const formSchema = z.object({
     .string()
     .min(3, { message: "Nama terlalu pendek, minimal 3 karakter" })
     .max(50, { message: "Nama terlalu panjang, maksimal 50 karakter" }),
-  description: z.object({
+  deadline: z.object({
     from: z.date(),
     to: z.date(),
   }),
@@ -49,8 +52,13 @@ const formSchema = z.object({
     .max(50, { message: "Nama terlalu panjang, maksimal 50 karakter" }),
 });
 
-const ProjectForm: React.FC<ProjectFormProps> = ({ namaProject, userId }) => {
+const ProjectForm: React.FC<ProjectFormProps> = ({
+  namaProject,
+  userId,
+  idProject,
+}) => {
   const { toast } = useToast();
+  const router = useRouter();
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const response = await fetch("/api/project", {
@@ -60,7 +68,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ namaProject, userId }) => {
       },
       body: JSON.stringify({
         name: values.name,
-        description: values.description.from,
+        deadlineFrom: values.deadline.from,
+        deadlineTo: values.deadline.to,
         user: values.user,
       }),
     });
@@ -79,6 +88,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ namaProject, userId }) => {
         description: "Project berhasil dibuat",
         variant: "default",
       });
+      router.push(`\\project\\${userId.user.id}\\${slugify(namaProject)}`);
     } else {
       toast({
         title: "Error",
@@ -92,7 +102,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ namaProject, userId }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: namaProject,
-      description: {
+      deadline: {
         from: undefined,
         to: undefined,
       },
@@ -127,22 +137,22 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ namaProject, userId }) => {
             name="user"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nama</FormLabel>
+                <FormLabel>ID User</FormLabel>
                 <FormControl>
                   <Input
                     defaultValue={userId.user.id}
-                    placeholder={userId.user.id}
+                    placeholder={userId.user.name}
                     disabled
                   />
                 </FormControl>
-                <FormDescription>Nama</FormDescription>
+                <FormDescription>ID User</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="description"
+            name="deadline"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Waktu Pengerjaan</FormLabel>
