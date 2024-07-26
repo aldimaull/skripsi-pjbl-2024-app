@@ -19,7 +19,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { CalendarIcon } from "@radix-ui/react-icons";
 
 import * as React from "react";
-import { format } from "date-fns";
+import { addDays, format, subDays } from "date-fns";
 
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -43,8 +43,26 @@ const formSchema = z.object({
     .min(3, { message: "Nama terlalu pendek, minimal 3 karakter" })
     .max(50, { message: "Nama terlalu panjang, maksimal 50 karakter" }),
   deadline: z.object({
-    from: z.date(),
-    to: z.date(),
+    from: z.date().refine(
+      (date) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Normalize today's date to start of the day
+        return date >= today;
+      },
+      {
+        message: "Start date must be in the future",
+      }
+    ),
+    to: z.date().refine(
+      (date) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Normalize today's date to start of the day
+        return date > today;
+      },
+      {
+        message: "End date must be after today",
+      }
+    ),
   }),
   user: z
     .string()
@@ -98,21 +116,27 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
     }
   };
 
+  const date = new Date();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: namaProject,
       deadline: {
-        from: undefined,
-        to: undefined,
+        from: new Date(date.setDate(date.getDate())),
+        to: new Date(date.setDate(date.getDate() + 7)),
       },
       user: userId.user.id,
     },
   });
 
+  const today = new Date();
+  const yesterday = subDays(today, 1);
+  const twoWeeksFromNow = addDays(today, 14);
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 pb-80">
         <div className="flex space-x-0 flex-col lg:flex-row lg:justify-start lg:space-x-2 space-y-2 lg:space-y-0">
           <FormField
             control={form.control}
@@ -163,7 +187,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
                         id="date"
                         variant={"outline"}
                         className={cn(
-                          "w-[250px] justify-start text-left font-normal",
+                          "w-full lg:w-[300px] justify-start text-left font-normal",
                           !field.value && "text-muted-foreground"
                         )}
                       >
@@ -190,6 +214,9 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
                         selected={field.value}
                         onSelect={field.onChange}
                         numberOfMonths={2}
+                        disabled={(date) =>
+                          date < yesterday || date > twoWeeksFromNow
+                        }
                       />
                     </PopoverContent>
                   </Popover>

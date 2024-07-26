@@ -58,9 +58,23 @@ export const TookProject = async () => {
             <CardHeader>
               <CardTitle>{project.name}</CardTitle>
             </CardHeader>
-            <CardFooter className="justify-between text-xs md:text-sm lg:text-base">
-              Tenggat waktu: <br /> {project.deadlineFrom.toLocaleDateString()}{" "}
-              - {project.deadlineTo.toLocaleDateString()}
+            <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
+              Tenggat waktu: <br />{" "}
+              <strong className="text-primary">
+                {project.deadlineFrom.toLocaleDateString("id-ID", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}{" "}
+                -{" "}
+                {project.deadlineTo.toLocaleDateString("id-ID", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </strong>
               <Link
                 href={`\\project\\${project.userId}\\${slugify(project.name)}`}
               >
@@ -120,8 +134,16 @@ export const Project = async () => {
                 {project.description}
               </CardDescription>
             </CardHeader>
-            <CardFooter className="text-xs md:text-sm lg:text-base">
-              Tenggat waktu: <br /> {project.deadline.toLocaleDateString()}
+            <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
+              Tenggat maksimal: <br />
+              <strong className="text-primary">
+                {project.deadline.toLocaleDateString("id-ID", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </strong>
             </CardFooter>
           </Card>
         </Link>
