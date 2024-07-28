@@ -1,9 +1,13 @@
 /** @type {import('next').NextConfig} */
 import createMDX from "@next/mdx";
+import withPWAInit from "@ducanh2912/next-pwa";
 
 // @ts-check
 import withSerwistInit from "@serwist/next";
 
+const withPWA = withPWAInit({
+  dest: "public",
+});
 const withSerwist = withSerwistInit({
   // cacheOnFrontEndNav: true,
   swSrc: "src/sw.ts", // add the path where you create sw.ts
@@ -23,4 +27,4 @@ const withMDX = createMDX({
   // Add markdown plugins here, as desired
 });
 
-export default withSerwist(withMDX(nextConfig));
+export default withPWA(withMDX(nextConfig));
