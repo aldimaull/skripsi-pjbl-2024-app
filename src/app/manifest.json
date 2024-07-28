@@ -3,14 +3,45 @@
   "short_name": "Projectic",
   "icons": [
     {
-      "purpose": "maskable",
-      "sizes": "300x68",
-      "src": "/icons/vercel.svg",
+      "purpose": "any",
+      "sizes": "48x48",
+      "src": "/icons/vercel_x48.png",
       "type": "image/png"
     },
     {
-      "sizes": "300x68",
-      "src": "/icons/vercel.svg",
+      "purpose": "any",
+      "sizes": "72x72",
+      "src": "/icons/vercel_x72.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "96x96",
+      "src": "/icons/vercel_x96.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "128x128",
+      "src": "/icons/vercel_x128.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "192x192",
+      "src": "/icons/vercel_x192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "384x384",
+      "src": "/icons/vercel_x384.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "/icons/vercel_x512.png",
       "type": "image/png"
     }
   ],
