@@ -126,27 +126,30 @@ export const Project = async () => {
   return (
     <CardDashboard title={cardTitle}>
       {project.map((project, index) => (
-        <Link key={index} href={`\\project\\${project.id}`} className={classes}>
-          <Card className="bg-secondary hover:bg-accent hover:shadow-sm hover:shadow-primary transition-all ease-in-out">
-            <CardHeader>
-              <CardTitle>{project.name}</CardTitle>
-              <CardDescription className="line-clamp-2">
-                {project.description}
-              </CardDescription>
-            </CardHeader>
-            <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
-              Tenggat maksimal: <br />
-              <strong className="text-primary">
-                {project.deadline.toLocaleDateString("id-ID", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </strong>
-            </CardFooter>
-          </Card>
-        </Link>
+        <Card key={index} className={`bg-secondary ${classes}`}>
+          <CardHeader>
+            <CardTitle>{project.name}</CardTitle>
+            <CardDescription className="line-clamp-2">
+              {project.description}
+            </CardDescription>
+          </CardHeader>
+          <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
+            Tenggat waktu: <br />{" "}
+            <strong className="text-primary">
+              {project.deadline.toLocaleDateString("id-ID", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </strong>
+            <Link href={`\\project\\${project.id}`}>
+              <Button variant="outline" size="md">
+                Lihat Project
+              </Button>
+            </Link>
+          </CardFooter>
+        </Card>
       ))}
     </CardDashboard>
   );

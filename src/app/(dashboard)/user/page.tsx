@@ -21,8 +21,8 @@ const page = async () => {
         </h2>
         <Nilai />
         <TookProject />
-        <Materi />
         <Project />
+        <Materi />
       </>
     );
   }
