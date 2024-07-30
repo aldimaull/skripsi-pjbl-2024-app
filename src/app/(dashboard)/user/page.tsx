@@ -14,7 +14,7 @@ const page = async () => {
   if (session?.user) {
     return (
       <>
-        <h1>Dashboard</h1>
+        <h1 className="font-serif tracking-wide">Dashboard</h1>
         <h2>
           Halo, selamat datang kembali{" "}
           <span className="text-primary font-bold">{session?.user.name}</span>!

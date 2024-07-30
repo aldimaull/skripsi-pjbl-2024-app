@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (session?.user) {
     return (
       <>
-        <h1>Materi</h1>
+        <h1 className="font-serif tracking-wide">Materi</h1>
         <article>
           <MDXRemote source={mdx?.content ?? ""} />
         </article>

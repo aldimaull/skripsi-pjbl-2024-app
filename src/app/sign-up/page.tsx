@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Login() {
   return (
     <>
-      <h2 className="text-xl font-bold">Daftar Akun</h2>
+      <h2 className="text-xl font-serif tracking-wide">Daftar Akun</h2>
       <Form />
       <p className="mt-2">
         Jika sudah punya akun, silakan{" "}

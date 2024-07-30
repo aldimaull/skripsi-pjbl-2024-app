@@ -13,7 +13,9 @@ const Project = async () => {
   if (session?.user) {
     return (
       <>
-        <h1 className="mb-2 lg:mb-4">Daftar Project Anda</h1>
+        <h1 className="mb-2 lg:mb-4 font-serif tracking-wide">
+          Daftar Project Anda
+        </h1>
         <div className="lg:grid grid-cols-2 lg:gap-4">
           {projectList.map((project, index) => (
             <div

@@ -6,27 +6,15 @@ export default function Footer() {
       <hr className="mt-5" />
       <div className="grid grid-cols-3 my-5">
         <Link href="/">
-          <p className="md:text-3xl sm:text-2xl text-xl tracking-tight col-span-2">
-            <span className="font-black">Project</span>ic
+          <p className="md:text-3xl sm:text-2xl text-xl font-black font-serif tracking-wide">
+            
+            <span className="text-primary">Project</span>ful
           </p>
         </Link>
-        {/* <div className="md:text-lg sm:text-md text-sm col-span-1">
-          <ul>
-            <li>
-              <Link href="/coba">Coba</Link>
-            </li>
-            <li>
-              <Link href="/coba">Coba</Link>
-            </li>
-            <li>
-              <Link href="/coba">Coba</Link>
-            </li>
-          </ul>
-        </div> */}
       </div>
       <div className="text-center">
-        <p>Created by Aldi Maulana</p>
-        <p>© 2024</p>
+        <p className="font-serif">Created by Aldi Maulana</p>
+        <p className="text-sm">© 2024</p>
       </div>
     </footer>
   );

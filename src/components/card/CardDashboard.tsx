@@ -158,7 +158,7 @@ export const Project = async () => {
 const CardDashboard = ({ title, children }: Props) => {
   return (
     <div className="my-4">
-      <h2 className="font-bold text-primary">{title}</h2>
+      <h2 className="font-serif text-primary tracking-wide">{title}</h2>
       <div className="flex overflow-x-auto justify-between space-x-2">
         {children}
       </div>

@@ -1,52 +1,52 @@
 {
-  "name": "Projectic",
-  "short_name": "Projectic",
+  "name": "Projectful",
+  "short_name": "Projectful",
   "icons": [
     {
       "purpose": "any",
       "sizes": "48x48",
-      "src": "/icons/vercel_x48.png",
+      "src": "/icons/vector_x48.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "72x72",
-      "src": "/icons/vercel_x72.png",
+      "src": "/icons/vector_x72.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "96x96",
-      "src": "/icons/vercel_x96.png",
+      "src": "/icons/vector_x96.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "128x128",
-      "src": "/icons/vercel_x128.png",
+      "src": "/icons/vector_x128.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "192x192",
-      "src": "/icons/vercel_x192.png",
+      "src": "/icons/vector_x192.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "384x384",
-      "src": "/icons/vercel_x384.png",
+      "src": "/icons/vector_x384.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "512x512",
-      "src": "/icons/vercel_x512.png",
+      "src": "/icons/vector_x512.png",
       "type": "image/png"
     }
   ],
-  "theme_color": "#ff850a",
-  "background_color": "#261a0d",
+  "theme_color": "#4249d7",
+  "background_color": "#0d0e26",
   "id": "/",
   "start_url": "/",
   "display": "standalone",

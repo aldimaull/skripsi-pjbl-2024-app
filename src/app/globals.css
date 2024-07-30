@@ -3,6 +3,59 @@
 @tailwind utilities;
 
 :root {
+  --background: 237 100% 95%;
+  --foreground: 237 5% 10%;
+  --card: 237 50% 90%;
+  --card-foreground: 237 5% 15%;
+  --popover: 237 100% 95%;
+  --popover-foreground: 237 100% 10%;
+  --primary: 237 65% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 237 30% 90%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 199 30% 85%;
+  --muted-foreground: 237 5% 35%;
+  --accent: 199 30% 80%;
+  --accent-foreground: 237 5% 15%;
+  --destructive: 0 100% 30%;
+  --destructive-foreground: 237 5% 90%;
+  --border: 237 30% 50%;
+  --input: 237 30% 29%;
+  --ring: 237 65% 47%;
+  --radius: 0.5rem;
+
+  .container {
+    background-image: url(../../public/bg.svg);
+  }
+}
+.dark {
+  --background: 237 50% 10%;
+  --foreground: 237 5% 90%;
+  --card: 237 50% 10%;
+  --card-foreground: 237 5% 90%;
+  --popover: 237 50% 5%;
+  --popover-foreground: 237 5% 90%;
+  --primary: 237 65% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 237 30% 20%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 199 30% 25%;
+  --muted-foreground: 237 5% 60%;
+  --accent: 199 30% 25%;
+  --accent-foreground: 237 5% 90%;
+  --destructive: 0 100% 30%;
+  --destructive-foreground: 237 5% 90%;
+  --border: 237 30% 29%;
+  --input: 237 30% 29%;
+  --ring: 237 65% 47%;
+  --radius: 0.5rem;
+
+  .container {
+    background-image: url(../../public/bg-dark.svg);
+  }
+}
+
+/* :root {
   --background: 30 8% 95%;
   --foreground: 30 5% 10%;
   --card: 30 50% 100%;
@@ -53,7 +106,7 @@
   .container {
     background-image: url(../../public/bg-dark.svg);
   }
-}
+} */
 
 @layer base {
   * {

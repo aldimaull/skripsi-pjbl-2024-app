@@ -16,7 +16,9 @@ export default async function Project({ params }: { params: { id: string } }) {
   if (session?.user) {
     return (
       <>
-        <h1 className="mb-4 text-primary">Detail Project</h1>
+        <h1 className="mb-4 text-primary font-serif tracking-wide">
+          Detail Project
+        </h1>
         {projects.map((project, index) => (
           <div key={index} className="space-y-4 ">
             <h2 className="mb-2 font-semibold">{project.name}</h2>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/layout/Header";
@@ -7,7 +7,14 @@ import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import Provider from "@/components/Provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
+const dm_serif_display = DM_Serif_Display({
+  weight: "400",
+  style: "normal",
+  subsets: ["latin"],
+  variable: "--font-dm-serif-display",
+});
 
 const APP_NAME = "M-PjBL";
 const APP_DEFAULT_TITLE = "Mobile-Project Based Learning";
@@ -67,7 +74,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} container py-4 flex flex-col min-h-screen`}
+        className={`${inter.className} ${dm_serif_display.variable} container py-4 flex flex-col min-h-screen`}
       >
         <Provider>
           <ThemeProvider
