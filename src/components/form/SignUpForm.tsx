@@ -22,7 +22,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const formSchema = z
   .object({
@@ -52,6 +54,7 @@ const formSchema = z
 
 export default function SignUpForm() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,6 +68,7 @@ export default function SignUpForm() {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setLoading(true);
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     const response = await fetch("/api/user", {
@@ -81,10 +85,27 @@ export default function SignUpForm() {
     });
     if (response.ok) {
       router.push("/login");
+      setLoading(false);
     } else {
+      setLoading(false);
       console.error("gagal");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-4 w-[200px]" />
+      </div>
+    );
+  }
 
   return (
     <Form {...form}>

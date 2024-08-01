@@ -15,9 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(8, {
@@ -32,6 +34,7 @@ const formSchema = z.object({
 export default function SignInForm() {
   const router = useRouter();
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,6 +44,7 @@ export default function SignInForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setLoading(true);
     const signInData = await signIn("credentials", {
       username: values.username,
       password: values.password,
@@ -48,6 +52,7 @@ export default function SignInForm() {
     });
 
     if (signInData?.error) {
+      setLoading(false);
       toast({
         title: "Error",
         description: "Ada masalah saat login. Silakan coba lagi.",
@@ -55,8 +60,24 @@ export default function SignInForm() {
       });
     } else {
       router.push("/user");
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-4 w-[200px]" />
+        <Skeleton className="h-4 w-[200px]" />
+      </div>
+    );
+  }
 
   return (
     <Form {...form}>

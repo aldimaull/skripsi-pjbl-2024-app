@@ -19,7 +19,7 @@ export default function Login() {
 
   return (
     <>
-      <h2 className="text-xl font-serif tracking-wide">Login</h2>
+      <h2 className="text-xl font-serif tracking-wide mb-2">Login</h2>
       <Form />
       <p className="mt-2">
         Jika belum punya akun, silakan{" "}
