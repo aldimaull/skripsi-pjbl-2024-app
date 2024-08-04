@@ -38,10 +38,10 @@ interface ProjectFormProps {
 }
 
 const formSchema = z.object({
-  name: z
+  id: z
     .string()
-    .min(3, { message: "Nama terlalu pendek, minimal 3 karakter" })
-    .max(50, { message: "Nama terlalu panjang, maksimal 50 karakter" }),
+    .min(1, { message: "Terlalu pendek, minimal 1 karakter" })
+    .max(50, { message: "Terlalu panjang, maksimal 50 karakter" }),
   deadline: z.object({
     from: z.date().refine(
       (date) => {
@@ -66,8 +66,8 @@ const formSchema = z.object({
   }),
   user: z
     .string()
-    .min(1, { message: "Nama terlalu pendek, minimal 3 karakter" })
-    .max(50, { message: "Nama terlalu panjang, maksimal 50 karakter" }),
+    .min(1, { message: "Terlalu pendek, minimal 1 karakter" })
+    .max(50, { message: "Terlalu panjang, maksimal 50 karakter" }),
 });
 
 const ProjectForm: React.FC<ProjectFormProps> = ({
@@ -85,10 +85,12 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: values.name,
+        id: values.id,
+        user: values.user,
         deadlineFrom: values.deadline.from,
         deadlineTo: values.deadline.to,
-        user: values.user,
+        submission: "kosong",
+        status: "SUBMITTED",
       }),
     });
 
@@ -121,7 +123,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: namaProject,
+      id: idProject,
       deadline: {
         from: new Date(date.setDate(date.getDate())),
         to: new Date(date.setDate(date.getDate() + 7)),
@@ -140,18 +142,18 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
         <div className="flex space-x-0 flex-col lg:flex-row lg:justify-start lg:space-x-2 space-y-2 lg:space-y-0">
           <FormField
             control={form.control}
-            name="name"
+            name="id"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nama Project</FormLabel>
+                <FormLabel>ID Project</FormLabel>
                 <FormControl>
                   <Input
-                    defaultValue={namaProject}
-                    placeholder={namaProject}
+                    defaultValue={idProject}
+                    placeholder={idProject}
                     disabled
                   />
                 </FormControl>
-                <FormDescription>Nama Project</FormDescription>
+                <FormDescription>ID Project</FormDescription>
                 <FormMessage />
               </FormItem>
             )}

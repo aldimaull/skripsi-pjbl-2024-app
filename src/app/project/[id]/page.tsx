@@ -23,7 +23,7 @@ export default async function Project({ params }: { params: { id: string } }) {
           <div key={index} className="space-y-4 ">
             <h2 className="mb-2 font-semibold">{project.name}</h2>
             <p className="bg-secondary px-5 py-6 rounded-md">
-              {project.description}
+              {project.content}
             </p>
             <ProjectForm
               idProject={project.id.toString()}

@@ -21,24 +21,24 @@ export default function MulaiProject({
 }) {
   const [projects, setProjects] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`/api/projectList/${params.namaProject}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const result = await response.json();
-      setProjects(result.data);
-    } catch (error) {
-      console.error("gagal");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/projectList/${params.namaProject}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.json();
+        setProjects(result.data);
+      } catch (error) {
+        console.error("gagal");
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchData();
-  });
+  }, [params.namaProject]);
 
   if (loading) {
     return (

@@ -55,59 +55,6 @@
   }
 }
 
-/* :root {
-  --background: 30 8% 95%;
-  --foreground: 30 5% 10%;
-  --card: 30 50% 100%;
-  --card-foreground: 30 5% 15%;
-  --popover: 30 100% 100%;
-  --popover-foreground: 30 100% 10%;
-  --primary: 30 100% 52%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 30 30% 90%;
-  --secondary-foreground: 0 0% 0%;
-  --muted: -8 30% 95%;
-  --muted-foreground: 30 5% 40%;
-  --accent: -8 30% 90%;
-  --accent-foreground: 30 5% 15%;
-  --destructive: 0 100% 50%;
-  --destructive-foreground: 30 5% 100%;
-  --border: 30 30% 82%;
-  --input: 30 30% 50%;
-  --ring: 30 100% 52%;
-  --radius: 0.5rem;
-
-  .container {
-    background-image: url(../../public/bg.svg);
-  }
-}
-.dark {
-  --background: 30 50% 10%;
-  --foreground: 30 5% 100%;
-  --card: 30 50% 10%;
-  --card-foreground: 30 5% 100%;
-  --popover: 30 50% 5%;
-  --popover-foreground: 30 5% 100%;
-  --primary: 30 100% 52%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 30 30% 20%;
-  --secondary-foreground: 0 0% 100%;
-  --muted: -8 30% 25%;
-  --muted-foreground: 30 5% 65%;
-  --accent: -8 30% 25%;
-  --accent-foreground: 30 5% 95%;
-  --destructive: 0 100% 50%;
-  --destructive-foreground: 30 5% 100%;
-  --border: 30 30% 50%;
-  --input: 30 30% 50%;
-  --ring: 30 100% 52%;
-  --radius: 0.5rem;
-
-  .container {
-    background-image: url(../../public/bg-dark.svg);
-  }
-} */
-
 @layer base {
   * {
     @apply border-border;
@@ -174,4 +121,8 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+}
+
+.nama-siswa {
+  text-shadow: 0 0 1em hsl(var(--primary));
 }

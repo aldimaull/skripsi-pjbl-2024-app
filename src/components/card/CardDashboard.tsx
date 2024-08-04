@@ -22,9 +22,23 @@ interface Props {
 const classes =
   "flex flex-col justify-between lg:basis-1/2 shrink-0 my-2 max-w-full";
 
-export const Nilai = () => {
+export const Nilai = async () => {
   const title = "Nilai";
   const cardTitle = "Project yang telah diselesaikan:";
+  const session = await getServerSession(authOptions);
+  const user: number = Number(session?.user.id);
+  const projects = await db.tookProject.findMany({
+    where: {
+      userId: user,
+    },
+    select: {
+      status: true,
+    },
+  });
+
+  const finishedProjects = projects.filter(
+    (project) => project.status === "FINISHED"
+  ).length;
 
   return (
     <CardDashboard title={title}>
@@ -33,7 +47,8 @@ export const Nilai = () => {
           <CardTitle>{cardTitle}</CardTitle>
         </CardHeader>
         <CardContent className="text-right text-3xl font-black">
-          1 / <span className="text-primary">4</span>
+          {finishedProjects} /{" "}
+          <span className="text-primary">{projects.length}</span>
         </CardContent>
       </Card>
     </CardDashboard>
@@ -44,9 +59,20 @@ export const TookProject = async () => {
   const cardTitle: string = "Project yang Sedang Dikerjakan";
   const session = await getServerSession(authOptions);
   const user: number = Number(session?.user.id);
-  const projects = await db.project.findMany({
+
+  const projects = await db.tookProject.findMany({
     where: {
       userId: user,
+    },
+    select: {
+      project: {
+        select: {
+          name: true,
+        },
+      },
+      userId: true,
+      deadlineFrom: true,
+      deadlineTo: true,
     },
   });
 
@@ -56,7 +82,7 @@ export const TookProject = async () => {
         projects.map((project, index) => (
           <Card key={index} className={`bg-secondary ${classes}`}>
             <CardHeader>
-              <CardTitle>{project.name}</CardTitle>
+              <CardTitle>{project.project.name}</CardTitle>
             </CardHeader>
             <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
               Tenggat waktu: <br />{" "}
@@ -76,7 +102,9 @@ export const TookProject = async () => {
                 })}
               </strong>
               <Link
-                href={`\\project\\${project.userId}\\${slugify(project.name)}`}
+                href={`\\project\\${project.userId}\\${slugify(
+                  project.project.name
+                )}`}
               >
                 <Button variant="outline" size="md">
                   Lihat Project
@@ -130,7 +158,7 @@ export const Project = async () => {
           <CardHeader>
             <CardTitle>{project.name}</CardTitle>
             <CardDescription className="line-clamp-2">
-              {project.description}
+              {project.content}
             </CardDescription>
           </CardHeader>
           <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">

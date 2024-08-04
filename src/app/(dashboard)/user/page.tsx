@@ -17,7 +17,10 @@ const page = async () => {
         <h1 className="font-serif tracking-wide">Dashboard</h1>
         <h2>
           Halo, selamat datang kembali{" "}
-          <span className="text-primary font-bold">{session?.user.name}</span>!
+          <span className="nama-siswa text-primary font-bold">
+            {session?.user.name}
+          </span>
+          !
         </h2>
         <Nilai />
         <TookProject />

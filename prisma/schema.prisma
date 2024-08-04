@@ -16,34 +16,43 @@ enum UserRole {
 
 model User {
   id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  name          String   @default("") @db.VarChar(255)
-  password      String
-  updateAt      DateTime @updatedAt
   username      String   @unique @db.VarChar(255)
-  projects      Project[]
-  role          UserRole @default(SISWA)
-}
-
-model Project {
-  id            Int      @id @default(autoincrement())
+  password      String
   name          String   @default("") @db.VarChar(255)
-  userId        Int      @unique
-  deadlineFrom  DateTime
-  deadlineTo    DateTime
+  role          UserRole @default(SISWA)
   createdAt     DateTime @default(now())
   updateAt      DateTime @updatedAt
-  user          User     @relation(fields: [userId], references: [id])
+  projects      TookProject[]
+
+  @@map("User")
 }
 
 model ProjectList {
   id            Int      @id @default(autoincrement())
   name          String   @default("") @db.VarChar(255)
-  description   String
-  deadline      DateTime
   content       String
+  deadline      DateTime
   createdAt     DateTime @default(now())
   updateAt      DateTime @updatedAt
+  users         TookProject[]
+
+  @@map("ProjectList")
+}
+
+model TookProject {
+  projectId     Int
+  userId        Int
+  deadlineFrom  DateTime
+  deadlineTo    DateTime
+  submission    String
+  status        String
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
+  project       ProjectList      @relation(fields: [projectId], references:   [id])
+  user          User         @relation(fields: [userId], references: [id])
+
+  @@id([projectId, userId])
+  @@map("TookProject")
 }
 
 model MateriList {
