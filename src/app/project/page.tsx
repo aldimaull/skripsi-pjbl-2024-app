@@ -23,7 +23,7 @@ const Project = async () => {
               className="my-4 p-4 lg:my-0 bg-secondary rounded-md space-y-2"
             >
               <h2>{project.name}</h2>
-              <p>{project.description}</p>
+              <p>{project.content}</p>
               <div>
                 <Link href={`/project/${project.id}`}>
                   <Button>Lihat Project</Button>

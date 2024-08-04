@@ -63,9 +63,7 @@ export default function MulaiProject({
 
       <div className="space-y-4 mb-4">
         <h2 className="mb-2 font-semibold">{projects?.name}</h2>
-        <p className="bg-secondary px-5 py-6 rounded-md">
-          {projects?.description}
-        </p>
+        <p className="bg-secondary px-5 py-6 rounded-md">{projects?.content}</p>
       </div>
       <CobaIni />
     </>
