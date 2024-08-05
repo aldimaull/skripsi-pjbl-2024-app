@@ -22,9 +22,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ButtonLoading } from "../ui/ButtonLoading";
 
 const formSchema = z
   .object({
@@ -91,21 +91,6 @@ export default function SignUpForm() {
       console.error("gagal");
     }
   };
-
-  if (loading) {
-    return (
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
-        <Skeleton className="h-4 w-[200px]" />
-        <Skeleton className="h-4 w-[200px]" />
-        <Skeleton className="h-4 w-[200px]" />
-      </div>
-    );
-  }
 
   return (
     <Form {...form}>
@@ -217,7 +202,7 @@ export default function SignUpForm() {
             )}
           />
         </div>
-        <Button type="submit">Submit</Button>
+        {loading ? <ButtonLoading /> : <Button type="submit">Daftar</Button>}
       </form>
     </Form>
   );

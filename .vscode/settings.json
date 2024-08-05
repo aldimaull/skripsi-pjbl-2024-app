@@ -19,7 +19,6 @@
   "files.trimFinalNewlines": true,
   "workbench.editor.showTabs": "multiple",
   "editor.minimap.enabled": false,
-  "editor.lineNumbers": "off",
   "editor.guides.indentation": false,
 
   // Silence the Noise

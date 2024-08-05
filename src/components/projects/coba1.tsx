@@ -20,7 +20,7 @@ export default function ClientComponentExample() {
   };
 
   return (
-    <div>
+    <div className="space-y-4">
       {/* Load immediately, but in a separate client bundle */}
       <ComponentA />
 

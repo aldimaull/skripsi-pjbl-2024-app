@@ -15,11 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { ButtonLoading } from "../ui/ButtonLoading";
 
 const formSchema = z.object({
   username: z.string().min(8, {
@@ -64,21 +64,6 @@ export default function SignInForm() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
-        <Skeleton className="h-4 w-[200px]" />
-        <Skeleton className="h-4 w-[200px]" />
-        <Skeleton className="h-4 w-[200px]" />
-      </div>
-    );
-  }
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
@@ -112,7 +97,7 @@ export default function SignInForm() {
             )}
           />
         </div>
-        <Button type="submit">Login</Button>
+        {loading ? <ButtonLoading /> : <Button type="submit">Login</Button>}
       </form>
     </Form>
   );
