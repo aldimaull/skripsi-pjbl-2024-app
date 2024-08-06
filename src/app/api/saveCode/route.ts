@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
     }
 
     const userId = session?.user.id;
-    const userInt = parseInt(userId, 10);
+    const userInt = parseInt(userId ?? "0", 10);
     const project = await db.tookProject.findUnique({
       where: {
         projectId_userId: {
