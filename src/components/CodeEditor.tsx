@@ -1,37 +1,37 @@
 "use client";
 import { Editor } from "@monaco-editor/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import CodeOutput from "./CodeOutput";
 
-const CodeEditor = ({ defaultValue }: { defaultValue: string }) => {
-  const [editorValue, setEditorValue] = useState(defaultValue);
+const CodeEditor = () => {
+  const editorRef = useRef();
+  const [value, setValue] = useState<string | undefined>("");
 
-  useEffect(() => {
-    const storedValue = localStorage.getItem("editorValue");
-    if (storedValue) {
-      setEditorValue(storedValue);
-    }
-  }, []);
-
-  const handleEditorChange = (newValue: string | undefined = "") => {
-    setEditorValue(newValue || "");
-    localStorage.setItem("editorValue", newValue || "");
+  const onMount = (editor: any) => {
+    editorRef.current = editor;
+    editor.focus();
   };
 
   return (
-    <Editor
-      height="30vh"
-      defaultLanguage="javascript"
-      defaultValue={editorValue}
-      onChange={handleEditorChange}
-      theme="vs-dark"
-      options={{
-        minimap: { enabled: false },
-        scrollBeyondLastLine: false,
-        wordWrap: "on",
-        wrappingIndent: "indent",
-        automaticLayout: true,
-      }}
-    />
+    <div>
+      <Editor
+        height="30vh"
+        defaultLanguage="javascript"
+        defaultValue="// coba"
+        onChange={(value) => setValue(value)}
+        theme="vs-dark"
+        options={{
+          minimap: { enabled: false },
+          scrollBeyondLastLine: false,
+          wordWrap: "on",
+          wrappingIndent: "indent",
+          automaticLayout: true,
+        }}
+        onMount={onMount}
+        value={value}
+      />
+      <CodeOutput editorRef={editorRef} language="javascript" />
+    </div>
   );
 };
 

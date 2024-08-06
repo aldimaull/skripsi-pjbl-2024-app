@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import CobaIni from "@/components/projects/coba1";
+import Project from "@/components/projects/palindrom";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useSession } from "next-auth/react";
 
 type Project = {
   id: number;
@@ -21,6 +22,8 @@ export default function MulaiProject({
 }) {
   const [projects, setProjects] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const [codeValue, setCodeValue] = useState<any>("");
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,9 +66,11 @@ export default function MulaiProject({
 
       <div className="space-y-4 mb-4">
         <h2 className="mb-2 font-semibold">{projects?.name}</h2>
-        <p className="bg-secondary px-5 py-6 rounded-md">{projects?.content}</p>
+        <p className="bg-secondary px-5 py-6 rounded-md text-sm lg:text-base">
+          {projects?.content}
+        </p>
       </div>
-      <CobaIni />
+      <Project />
     </>
   );
 }
