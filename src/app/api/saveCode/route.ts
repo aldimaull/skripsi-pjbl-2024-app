@@ -1,11 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { projectId, code, userId } = req.body;
-  const userInt = parseInt(userId, 10);
-
+export async function POST(req: NextRequest) {
   try {
+    const { projectId, code, userId } = await req.json();
+    const userInt = parseInt(userId, 10);
     const updatedProject = await db.tookProject.update({
       where: {
         projectId_userId: {
@@ -16,12 +15,12 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       data: { submission: code },
     });
 
-    res.status(200).json({
-      success: true,
+    return NextResponse.json({
       data: updatedProject,
+      message: "Berhasil disimpan",
+      status: 201,
     });
   } catch (error) {
-    console.error("Error updating project:", error);
-    res.status(500).json({ success: false, error: "Failed to update project" });
+    return NextResponse.json({ message: "Gagal menyimpan" }, { status: 500 });
   }
 }
