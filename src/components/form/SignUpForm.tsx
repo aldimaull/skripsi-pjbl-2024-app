@@ -202,7 +202,11 @@ export default function SignUpForm() {
             )}
           />
         </div>
-        {loading ? <ButtonLoading /> : <Button type="submit">Daftar</Button>}
+        {loading ? (
+          <ButtonLoading size="default" variant="default" />
+        ) : (
+          <Button type="submit">Daftar</Button>
+        )}
       </form>
     </Form>
   );
