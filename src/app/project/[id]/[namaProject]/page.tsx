@@ -22,7 +22,6 @@ export default function MulaiProject({
 }) {
   const [projects, setProjects] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
-  const [codeValue, setCodeValue] = useState<any>("");
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -70,7 +69,7 @@ export default function MulaiProject({
           {projects?.content}
         </p>
       </div>
-      <Project />
+      <Project userId={session?.user.id ?? ""} projectId={projects?.id ?? 0} />
     </>
   );
 }

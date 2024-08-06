@@ -1,23 +1,71 @@
 "use client";
 import { Editor } from "@monaco-editor/react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, ReactNode } from "react";
 import CodeOutput from "./CodeOutput";
+import { Button } from "./ui/button";
 
-const CodeEditor = () => {
+const CodeEditor = ({
+  id,
+  userId,
+  projectId,
+  children,
+}: {
+  id: string;
+  userId: string;
+  projectId: number;
+  children?: ReactNode;
+}) => {
   const editorRef = useRef();
-  const [value, setValue] = useState<string | undefined>("");
+  const [value, setValue] = useState<string | undefined>("// coba");
 
   const onMount = (editor: any) => {
     editorRef.current = editor;
     editor.focus();
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `/api/saveCode?projectId=${projectId}&userId=${userId}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setValue(data.data.submission);
+      } else {
+        console.error("Failed to fetch code");
+      }
+    };
+
+    fetchData();
+  }, [projectId, userId]);
+
+  const handleSubmit = async () => {
+    const response = await fetch("/api/saveCode", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ value, userId, projectId }),
+    });
+
+    if (response.ok) {
+      alert(`Code from editor ${id} saved successfully!`);
+    } else {
+      alert(`Failed to save code from editor ${id}.`);
+    }
+  };
+
   return (
     <div>
+      {children}
       <Editor
         height="30vh"
         defaultLanguage="javascript"
-        defaultValue="// coba"
+        defaultValue={value}
         onChange={(value) => setValue(value)}
         theme="vs-dark"
         options={{
@@ -31,6 +79,7 @@ const CodeEditor = () => {
         value={value}
       />
       <CodeOutput editorRef={editorRef} language="javascript" />
+      <Button onClick={handleSubmit}>Save Code</Button>
     </div>
   );
 };
