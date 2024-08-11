@@ -50,7 +50,7 @@ type Project = {
   };
 };
 
-function DialogDemo({ code }) {
+function DialogDemo({ code }: { code: string }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
