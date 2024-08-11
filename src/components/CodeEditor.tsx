@@ -61,7 +61,7 @@ const CodeEditor = ({
 
   return (
     <div>
-      {children}
+      <div className="mb-2">{children}</div>
       <Editor
         height="30vh"
         defaultLanguage="javascript"
@@ -79,7 +79,9 @@ const CodeEditor = ({
         value={value}
       />
       <CodeOutput editorRef={editorRef} language="javascript" />
-      <Button onClick={handleSubmit}>Save Code</Button>
+      <Button onClick={handleSubmit} className="mt-2">
+        Simpan Kode
+      </Button>
     </div>
   );
 };

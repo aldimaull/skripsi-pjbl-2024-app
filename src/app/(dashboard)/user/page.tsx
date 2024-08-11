@@ -6,6 +6,7 @@ import {
   Project,
   Nilai,
   TookProject,
+  Assessment,
 } from "@/components/card/CardDashboard";
 import NoSession from "@/components/error/NoSession";
 
@@ -24,6 +25,7 @@ const page = async () => {
         </h2>
         <Nilai />
         <TookProject />
+        <Assessment />
         <Project />
         <Materi />
       </>

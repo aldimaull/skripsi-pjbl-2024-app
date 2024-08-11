@@ -1,5 +1,6 @@
 generator client {
   provider      = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -23,6 +24,7 @@ model User {
   createdAt     DateTime @default(now())
   updateAt      DateTime @updatedAt
   projects      TookProject[]
+  responses     Response[]
 
   @@map("User")
 }
@@ -62,4 +64,35 @@ model MateriList {
   content       String
   createdAt     DateTime @default(now())
   updateAt      DateTime @updatedAt
+}
+
+model Assessment {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+  questions     Question[]
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
+}
+
+model Question {
+  id            Int      @id @default(autoincrement())
+  content       String
+  assessmentId  Int
+  assessment    Assessment @relation(fields: [assessmentId], references: [id])
+  responses     Response[]
+  options       String[]
+  createdAt     DateTime @default(now())
+  updateAt      DateTime @updatedAt
+}
+
+model Response {
+  id              Int       @id @default(autoincrement())
+  questionId      Int
+  userId          Int
+  selectedOption  String
+  question        Question  @relation(fields: [questionId], references: [id])
+  user            User      @relation(fields: [userId], references: [id])
+  createdAt       DateTime  @default(now())
+  updateAt        DateTime @updatedAt
 }

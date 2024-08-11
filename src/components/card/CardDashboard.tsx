@@ -183,6 +183,33 @@ export const Project = async () => {
   );
 };
 
+export const Assessment = async () => {
+  const cardTitle: string = "Assessment";
+  const assessment = await db.assessment.findMany();
+
+  return (
+    <CardDashboard title={cardTitle}>
+      {assessment.map((assessment, index) => (
+        <Card key={index} className={`bg-secondary ${classes}`}>
+          <CardHeader>
+            <CardTitle>{assessment.title}</CardTitle>
+            <CardDescription className="line-clamp-2">
+              {assessment.description}
+            </CardDescription>
+          </CardHeader>
+          <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
+            <Link href={`\\assessment\\${assessment.id}`}>
+              <Button variant="outline" size="md">
+                Kerjakan
+              </Button>
+            </Link>
+          </CardFooter>
+        </Card>
+      ))}
+    </CardDashboard>
+  );
+};
+
 const CardDashboard = ({ title, children }: Props) => {
   return (
     <div className="my-4">

@@ -1,7 +1,11 @@
-import React from "react";
+import TableProjects from "@/components/(guru)/TableProjects";
 
 const page = () => {
-  return <div>Ini page guru</div>;
+  return (
+    <div>
+      <TableProjects />
+    </div>
+  );
 };
 
 export default page;
