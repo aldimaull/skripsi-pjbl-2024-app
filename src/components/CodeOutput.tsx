@@ -44,7 +44,7 @@ const CodeOutput = ({
       }`}
     >
       {loading ? (
-        <ButtonLoading size="md" variant="outline" />
+        <ButtonLoading size="md" variant="outline" className="" />
       ) : (
         <Button size="md" onClick={runCode} variant="outline">
           Run

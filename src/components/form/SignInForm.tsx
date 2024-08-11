@@ -98,7 +98,7 @@ export default function SignInForm() {
           />
         </div>
         {loading ? (
-          <ButtonLoading size="default" variant="default" />
+          <ButtonLoading size="default" variant="default" className="" />
         ) : (
           <Button type="submit">Login</Button>
         )}

@@ -203,7 +203,7 @@ export default function SignUpForm() {
           />
         </div>
         {loading ? (
-          <ButtonLoading size="default" variant="default" />
+          <ButtonLoading size="default" variant="default" className="" />
         ) : (
           <Button type="submit">Daftar</Button>
         )}
