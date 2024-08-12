@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Skeleton } from "../ui/skeleton";
 import { ButtonLoading } from "../ui/ButtonLoading";
+import { useToast } from "../ui/use-toast";
 
 type Question = {
   id: number;
@@ -41,6 +42,7 @@ const Questions = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -89,9 +91,13 @@ const Questions = ({ params }: { params: { id: string } }) => {
     );
   }
 
+  const answersLength = Object.keys(answers).length;
+
   const handleNext = () => {
     const currentQuestion = value[currentQuestionIndex];
     const selectedAnswer = form.getValues("answer");
+    console.log(value.length);
+    console.log(answersLength);
 
     setAnswers((prevResponse) => {
       const existingAnswerIndex = Object.keys(prevResponse).findIndex(
@@ -144,6 +150,15 @@ const Questions = ({ params }: { params: { id: string } }) => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+    if (value.length !== answersLength) {
+      toast({
+        title: "Error",
+        description: "Mohon jawab semua pertanyaan",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
     const currentQuestion = value[currentQuestionIndex];
     const selectedAnswer = form.getValues("answer");
     console.log(selectedAnswer);

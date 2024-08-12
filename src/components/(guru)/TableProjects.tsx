@@ -139,9 +139,9 @@ export default function TableDemo() {
 
   return (
     <>
-      <h1 className="mb-4 text-primary font-serif tracking-wide">
+      <h2 className="font-serif mt-4 mb-2 text-primary tracking-wide">
         Hasil Project Siswa
-      </h1>
+      </h2>
       <Table>
         <TableHeader>
           <TableRow>
