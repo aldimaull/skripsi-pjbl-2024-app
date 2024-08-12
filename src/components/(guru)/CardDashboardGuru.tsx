@@ -24,9 +24,10 @@ const classes =
 export const Materi = async () => {
   const title = "Tambah Materi";
   const materi = await db.materiList.findMany();
+  const link = "#";
 
   return (
-    <CardDashboard title={title}>
+    <CardDashboard title={title} link={link}>
       {materi.map((materi, index) => (
         <Card key={index} className={`bg-secondary ${classes}`}>
           <CardHeader>
@@ -51,9 +52,10 @@ export const Materi = async () => {
 export const Project = async () => {
   const cardTitle: string = "Tambah Project";
   const project = await db.projectList.findMany();
+  const link = "#";
 
   return (
-    <CardDashboard title={cardTitle}>
+    <CardDashboard title={cardTitle} link={link}>
       {project.map((project, index) => (
         <Card key={index} className={`bg-secondary ${classes}`}>
           <CardHeader>
