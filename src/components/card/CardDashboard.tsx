@@ -71,16 +71,24 @@ export const TookProject = async () => {
         },
       },
       userId: true,
+      status: true,
       deadlineFrom: true,
       deadlineTo: true,
     },
   });
 
+  const isSubmitted = projects.some((project) => project.status === "FINISHED");
+
   return (
     <CardDashboard title={cardTitle}>
       {projects.length > 0 ? (
         projects.map((project, index) => (
-          <Card key={index} className={`bg-secondary ${classes}`}>
+          <Card
+            key={index}
+            className={`${
+              isSubmitted ? "bg-green-300 dark:bg-green-950" : "bg-secondary"
+            } ${classes}`}
+          >
             <CardHeader>
               <CardTitle>{project.project.name}</CardTitle>
             </CardHeader>
@@ -150,6 +158,15 @@ export const Materi = async () => {
 export const Project = async () => {
   const cardTitle: string = "Project";
   const project = await db.projectList.findMany();
+  const session = await getServerSession(authOptions);
+  const user: number = Number(session?.user.id);
+  const userProject = await db.tookProject.findFirst({
+    where: {
+      userId: user,
+    },
+  });
+
+  const isTook = userProject ? true : false;
 
   return (
     <CardDashboard title={cardTitle}>
@@ -171,11 +188,11 @@ export const Project = async () => {
                 day: "numeric",
               })}
             </strong>
-            <Link href={`\\project\\${project.id}`}>
-              <Button variant="outline" size="md">
+            <Button variant="outline" size="md" disabled={isTook}>
+              <Link href={`\\project\\${project.id}`} aria-disabled={isTook}>
                 Lihat Project
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </CardFooter>
         </Card>
       ))}
@@ -185,28 +202,58 @@ export const Project = async () => {
 
 export const Assessment = async () => {
   const cardTitle: string = "Assessment";
-  const assessment = await db.assessment.findMany();
+  const assessment = await db.assessment.findMany({
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+  const session = await getServerSession(authOptions);
+  const user: number = Number(session?.user.id);
+  const userProject = await db.tookProject.findFirst({
+    where: {
+      userId: user,
+    },
+  });
+  const nilai = await db.nilai.findMany();
+  const nilaiAssessmentIds = new Set(nilai?.map((n) => n.assessmentId));
 
   return (
-    <CardDashboard title={cardTitle}>
-      {assessment.map((assessment, index) => (
-        <Card key={index} className={`bg-secondary ${classes}`}>
-          <CardHeader>
-            <CardTitle>{assessment.title}</CardTitle>
-            <CardDescription className="line-clamp-2">
-              {assessment.description}
-            </CardDescription>
-          </CardHeader>
-          <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
-            <Link href={`\\assessment\\${assessment.id}`}>
-              <Button variant="outline" size="md">
-                Kerjakan
-              </Button>
-            </Link>
-          </CardFooter>
-        </Card>
-      ))}
-    </CardDashboard>
+    <div>
+      <CardDashboard title={cardTitle}>
+        {assessment.map((assessment, index) => {
+          const isSubmitted =
+            !userProject ||
+            userProject?.status === "SUBMITTED" ||
+            nilaiAssessmentIds.has(assessment.id);
+          return (
+            <Card key={index} className={`bg-secondary ${classes}`}>
+              <CardHeader>
+                <CardTitle>{assessment.title}</CardTitle>
+                <CardDescription className="line-clamp-2">
+                  {assessment.description}
+                </CardDescription>
+              </CardHeader>
+              <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
+                <Button variant="outline" size="md" disabled={isSubmitted}>
+                  <Link
+                    href={`\\assessment\\${assessment.id}`}
+                    aria-disabled={isSubmitted}
+                  >
+                    Kerjakan
+                  </Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          );
+        })}
+      </CardDashboard>
+      <p>
+        Semua nilai assessment bisa dilihat{" "}
+        <Link href="/nilai" className="font-bold underline underline-offset-4">
+          di halaman ini
+        </Link>
+      </p>
+    </div>
   );
 };
 

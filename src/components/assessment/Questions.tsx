@@ -19,11 +19,22 @@ import { z } from "zod";
 import { Skeleton } from "../ui/skeleton";
 import { ButtonLoading } from "../ui/ButtonLoading";
 import { useToast } from "../ui/use-toast";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 
 type Question = {
   id: number;
   content: string;
   assessmentId: number;
+  kunci: string;
   options: string[];
   createdAt: Date;
   updateAt: Date;
@@ -34,15 +45,46 @@ const FormSchema = z.object({
   answer: z.string().min(1, "You must select an option"),
 });
 
+function DialogCloseButton({ handleSubmit }: { handleSubmit: any }) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="default" className="mt-4">
+          Submit
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md h-auto">
+        <DialogHeader>
+          <DialogTitle>Konfirmasi</DialogTitle>
+          <DialogDescription>
+            Apakah Anda yakin untuk mengirim jawaban?
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter className="sm:justify-start">
+          <DialogClose asChild>
+            <Button type="button" variant="secondary">
+              Kembali
+            </Button>
+          </DialogClose>
+          <Button type="submit" variant="default" onClick={handleSubmit}>
+            Submit
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 const Questions = ({ params }: { params: { id: string } }) => {
   const [value, setValue] = useState<Question[] | []>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const { data: session } = useSession();
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [nilai, setNilai] = useState(0);
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -91,13 +133,9 @@ const Questions = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  const answersLength = Object.keys(answers).length;
-
   const handleNext = () => {
     const currentQuestion = value[currentQuestionIndex];
     const selectedAnswer = form.getValues("answer");
-    console.log(value.length);
-    console.log(answersLength);
 
     setAnswers((prevResponse) => {
       const existingAnswerIndex = Object.keys(prevResponse).findIndex(
@@ -124,7 +162,6 @@ const Questions = ({ params }: { params: { id: string } }) => {
   const handlePrevious = () => {
     const currentQuestion = value[currentQuestionIndex];
     const selectedAnswer = form.getValues("answer");
-
     setAnswers((prevResponse) => {
       const existingAnswerIndex = Object.keys(prevResponse).findIndex(
         (key) => key === currentQuestion.id.toString()
@@ -148,17 +185,57 @@ const Questions = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    if (value.length !== answersLength) {
+  const submitScore = async (nilai: number) => {
+    const updatedAnswers = {
+      ...answers,
+    };
+    let calculatedScore = 0;
+    Object.keys(updatedAnswers).forEach((questionId) => {
+      const question = value.find((q) => q.id.toString() === questionId);
+      if (question && updatedAnswers[questionId] === question.kunci) {
+        calculatedScore += 1;
+      }
+    });
+    setNilai(calculatedScore);
+
+    try {
+      const response = await fetch("/api/nilai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: session?.user?.id,
+          assessmentId: params.id,
+          nilai,
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Success",
+          description: "Nilai berhasil disimpan!",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Gagal menyimpan nilai",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
       toast({
         title: "Error",
-        description: "Mohon jawab semua pertanyaan",
+        description: "Terjadi error: " + error + " saat menyimpan nilai!",
         variant: "destructive",
       });
+    } finally {
       setIsSubmitting(false);
-      return;
     }
+  };
+
+  const handleSubmit = async () => {
     const currentQuestion = value[currentQuestionIndex];
     const selectedAnswer = form.getValues("answer");
     console.log(selectedAnswer);
@@ -178,6 +255,21 @@ const Questions = ({ params }: { params: { id: string } }) => {
       answer: updatedAnswers[questionId],
     }));
 
+    const isAnyAnswerEmpty = Object.values(updatedAnswers).some(
+      (answer) => answer.trim() === ""
+    );
+
+    if (isAnyAnswerEmpty) {
+      toast({
+        title: "Error",
+        description: "Masih ada soal yang belum terjawab!",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
       const response = await fetch("/api/responses", {
         method: "POST",
@@ -191,100 +283,159 @@ const Questions = ({ params }: { params: { id: string } }) => {
       });
 
       if (response.ok) {
-        console.log("Answers submitted successfully");
-        router.push("/user");
+        toast({
+          title: "Success",
+          description: "Jawaban berhasil disubmit!",
+          variant: "default",
+        });
+        await submitScore(nilai);
       } else {
-        console.error("Failed to submit answers");
+        toast({
+          title: "Error",
+          description: "Jawaban gagal disubmit",
+          variant: "destructive",
+        });
       }
     } catch (error) {
-      console.error("Error submitting answers:", error);
+      toast({
+        title: "Error",
+        description: "Terjadi error: " + error + " saat disubmit!",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
   };
 
+  console.log(answers);
+  console.log(nilai);
+
+  const handleQuestionClick = (index: number) => {
+    setCurrentQuestionIndex(index);
+    const currentQuestion = value[currentQuestionIndex];
+    const selectedAnswer = form.getValues("answer");
+
+    setAnswers((prevResponse) => {
+      const existingAnswerIndex = Object.keys(prevResponse).findIndex(
+        (key) => key === currentQuestion.id.toString()
+      );
+      if (existingAnswerIndex >= 0) {
+        const updatedResponse = { ...prevResponse };
+        updatedResponse[currentQuestion.id.toString()] = selectedAnswer;
+        return updatedResponse;
+      } else {
+        return {
+          ...prevResponse,
+          [currentQuestion.id.toString()]: selectedAnswer,
+        };
+      }
+    });
+    // form.reset();
+  };
+
+  if (!value) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <Form {...form}>
-      {value[currentQuestionIndex] && (
-        <form
-          onSubmit={form.handleSubmit(
-            currentQuestionIndex < value.length - 1 ? handleNext : handleSubmit
-          )}
-        >
-          <FormField
-            control={form.control}
-            name="answer"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-base">
-                  {value[currentQuestionIndex].content}
-                </FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  >
-                    {value[currentQuestionIndex].options.map(
-                      (option, index) => (
-                        <FormItem
-                          className="flex items-center space-x-3 space-y-0"
-                          key={index}
-                        >
-                          <FormControl>
-                            <RadioGroupItem
-                              id={value[currentQuestionIndex].id.toString()}
-                              value={option}
-                            />
-                          </FormControl>
-                          <FormLabel className="text-base">{option}</FormLabel>
-                        </FormItem>
-                      )
-                    )}
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+    <>
+      <Form {...form}>
+        {value[currentQuestionIndex] && (
+          <form
+            onSubmit={form.handleSubmit(
+              currentQuestionIndex < value.length - 1
+                ? handleNext
+                : handleSubmit
             )}
-          />
-          <div className="flex space-x-2 items-center">
-            {currentQuestionIndex > 0 && (
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handlePrevious}
-                className="mt-4 mr-2"
-              >
-                Previous
-              </Button>
-            )}
-            {currentQuestionIndex < value.length - 1 ? (
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleNext}
-                className="mt-4 mr-2"
-              >
-                Next
-              </Button>
-            ) : (
-              <>
-                {isSubmitting ? (
-                  <ButtonLoading
-                    size="default"
-                    variant="default"
-                    className="mt-4"
-                  />
-                ) : (
-                  <Button type="submit" className="mt-4" onClick={handleSubmit}>
-                    Submit
-                  </Button>
-                )}
-              </>
-            )}
-          </div>
-        </form>
-      )}
-    </Form>
+          >
+            <FormField
+              control={form.control}
+              name="answer"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-base">
+                    {value[currentQuestionIndex].content}
+                  </FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    >
+                      {value[currentQuestionIndex].options.map(
+                        (option, index) => (
+                          <FormItem
+                            className="flex items-center space-x-3 space-y-0"
+                            key={index}
+                          >
+                            <FormControl>
+                              <RadioGroupItem
+                                id={value[currentQuestionIndex].id.toString()}
+                                value={option}
+                              />
+                            </FormControl>
+                            <FormLabel className="text-base">
+                              {option}
+                            </FormLabel>
+                          </FormItem>
+                        )
+                      )}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex space-x-2 items-center">
+              {currentQuestionIndex > 0 && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handlePrevious}
+                  className="mt-4 mr-2"
+                >
+                  Previous
+                </Button>
+              )}
+              {currentQuestionIndex < value.length - 1 ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleNext}
+                  className="mt-4 mr-2"
+                >
+                  Next
+                </Button>
+              ) : (
+                <>
+                  {isSubmitting ? (
+                    <ButtonLoading
+                      size="default"
+                      variant="default"
+                      className="mt-4"
+                    />
+                  ) : (
+                    <DialogCloseButton handleSubmit={handleSubmit} />
+                  )}
+                </>
+              )}
+            </div>
+          </form>
+        )}
+      </Form>
+      <div className="mt-4 flex space-x-2">
+        {value.map((question, index) => (
+          <Button
+            key={index}
+            onClick={() => handleQuestionClick(index)}
+            className={`p-4 ${
+              answers[question.id.toString()] ? "bg-green-500" : ""
+            } ${!answers[question.id.toString()]} ? "bg-gray-200" : ""`}
+          >
+            {index + 1}
+          </Button>
+        ))}
+      </div>
+    </>
   );
 };
 

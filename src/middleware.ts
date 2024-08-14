@@ -24,7 +24,8 @@ export async function middleware(request: NextRequest) {
         !request.nextUrl.pathname.startsWith("/user") &&
         !request.nextUrl.pathname.startsWith("/assessment") &&
         !request.nextUrl.pathname.startsWith("/materi") &&
-        !request.nextUrl.pathname.startsWith("/project")
+        !request.nextUrl.pathname.startsWith("/project") &&
+        !request.nextUrl.pathname.startsWith("/nilai")
       ) {
         return NextResponse.redirect(new URL("/user", request.url));
       }
