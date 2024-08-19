@@ -73,22 +73,22 @@ export default function RootLayout({
   };
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} ${dm_serif_display.variable} container py-4 flex flex-col min-h-screen`}
-      >
-        <Provider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </ThemeProvider>
-        </Provider>
-        <Toaster />
+      <body className={`${inter.className} ${dm_serif_display.variable} `}>
+        <div className="container py-4 flex flex-col min-h-screen ">
+          <Provider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Header />
+              <main>{children}</main>
+              <Footer />
+            </ThemeProvider>
+          </Provider>
+          <Toaster />
+        </div>
       </body>
     </html>
   );

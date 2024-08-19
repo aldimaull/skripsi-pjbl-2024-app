@@ -192,7 +192,7 @@ export default function SignUpForm() {
                       <SelectValue placeholder="Saya masuk sebagai.." />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent position="popper">
                     <SelectItem value="GURU">Guru</SelectItem>
                     <SelectItem value="SISWA">Siswa</SelectItem>
                   </SelectContent>
