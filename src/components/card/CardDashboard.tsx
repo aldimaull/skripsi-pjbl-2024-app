@@ -214,17 +214,19 @@ export const Assessment = async () => {
       userId: user,
     },
   });
-  const nilai = await db.nilai.findMany();
-  const nilaiAssessmentIds = new Set(nilai?.map((n) => n.assessmentId));
+  const nilai = await db.nilai.findMany({
+    where: {
+      userId: user,
+    }
+  });
+
 
   return (
     <div>
       <CardDashboard title={cardTitle}>
         {assessment.map((assessment, index) => {
           const isSubmitted =
-            !userProject ||
-            userProject?.status === "SUBMITTED" ||
-            nilaiAssessmentIds.has(assessment.id);
+            userProject && userProject.status === "FINISHED" && nilai.length === 0;
           return (
             <Card key={index} className={`bg-secondary ${classes}`}>
               <CardHeader>

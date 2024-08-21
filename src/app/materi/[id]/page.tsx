@@ -4,6 +4,14 @@ import { getServerSession } from "next-auth";
 import NoSession from "@/components/error/NoSession";
 import { db } from "@/lib/db";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypeHighlight from "rehype-highlight";
+
+const options = {
+  mdxOptions: {
+    remarkPlugins: [],
+    rehypePlugins: [rehypeHighlight],
+  },
+};
 
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
@@ -18,7 +26,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       <>
         <h1 className="font-serif tracking-wide">Materi</h1>
         <article>
-          <MDXRemote source={mdx?.content ?? ""} />
+          <MDXRemote source={mdx?.content ?? ""} options={options} />
         </article>
       </>
     );

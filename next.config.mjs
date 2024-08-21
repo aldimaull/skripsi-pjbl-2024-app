@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-import createMDX from "@next/mdx";
+import nextMDX from "@next/mdx";
+import rehypeHighlight from "rehype-highlight";
 import withPWAInit from "@ducanh2912/next-pwa";
 
 // @ts-check
@@ -238,8 +239,11 @@ const nextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
-const withMDX = createMDX({
-  // Add markdown plugins here, as desired
+const withMDX = nextMDX({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [rehypeHighlight],
+  },
 });
 
 export default withPWA(withMDX(nextConfig));
