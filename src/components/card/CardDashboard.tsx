@@ -217,16 +217,17 @@ export const Assessment = async () => {
   const nilai = await db.nilai.findMany({
     where: {
       userId: user,
-    }
+    },
   });
-
 
   return (
     <div>
       <CardDashboard title={cardTitle}>
         {assessment.map((assessment, index) => {
           const isSubmitted =
-            userProject && userProject.status === "FINISHED" && nilai.length === 0;
+            userProject &&
+            userProject.status === "FINISHED" &&
+            nilai.length === 0;
           return (
             <Card key={index} className={`bg-secondary ${classes}`}>
               <CardHeader>
@@ -236,13 +237,12 @@ export const Assessment = async () => {
                 </CardDescription>
               </CardHeader>
               <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
-                <Button variant="outline" size="md" disabled={isSubmitted}>
-                  <Link
-                    href={`\\assessment\\${assessment.id}`}
-                    aria-disabled={isSubmitted}
-                  >
-                    Kerjakan
-                  </Link>
+                <Button
+                  variant="outline"
+                  size="md"
+                  disabled={isSubmitted ?? false}
+                >
+                  <Link href={`\\assessment\\${assessment.id}`}>Kerjakan</Link>
                 </Button>
               </CardFooter>
             </Card>
