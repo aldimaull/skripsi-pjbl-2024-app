@@ -185,60 +185,32 @@ const Questions = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  const submitScore = async (nilai: number) => {
-    const updatedAnswers = {
-      ...answers,
-    };
-    let calculatedScore = 0;
-    Object.keys(updatedAnswers).forEach((questionId) => {
-      const question = value.find((q) => q.id.toString() === questionId);
-      if (question && updatedAnswers[questionId] === question.kunci) {
-        calculatedScore += 1;
+  const handleQuestionClick = (index: number) => {
+    setCurrentQuestionIndex(index);
+    const currentQuestion = value[currentQuestionIndex];
+    const selectedAnswer = form.getValues("answer");
+
+    setAnswers((prevResponse) => {
+      const existingAnswerIndex = Object.keys(prevResponse).findIndex(
+        (key) => key === currentQuestion.id.toString()
+      );
+      if (existingAnswerIndex >= 0) {
+        const updatedResponse = { ...prevResponse };
+        updatedResponse[currentQuestion.id.toString()] = selectedAnswer;
+        return updatedResponse;
+      } else {
+        return {
+          ...prevResponse,
+          [currentQuestion.id.toString()]: selectedAnswer,
+        };
       }
     });
-    setNilai(calculatedScore);
-
-    try {
-      const response = await fetch("/api/nilai", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: session?.user?.id,
-          assessmentId: params.id,
-          nilai,
-        }),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Success",
-          description: "Nilai berhasil disimpan!",
-          variant: "default",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: "Gagal menyimpan nilai",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Terjadi error: " + error + " saat menyimpan nilai!",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    // form.reset();
   };
 
   const handleSubmit = async () => {
     const currentQuestion = value[currentQuestionIndex];
     const selectedAnswer = form.getValues("answer");
-    console.log(selectedAnswer);
 
     setAnswers((prevResponse) => ({
       ...prevResponse,
@@ -270,6 +242,15 @@ const Questions = ({ params }: { params: { id: string } }) => {
 
     setIsSubmitting(true);
 
+    let calculatedScore = 0;
+    Object.keys(updatedAnswers).forEach((questionId) => {
+      const question = value.find((q) => q.id.toString() === questionId);
+      if (question && updatedAnswers[questionId] === question.kunci) {
+        calculatedScore += 5;
+      }
+    });
+    setNilai(calculatedScore);
+
     try {
       const response = await fetch("/api/responses", {
         method: "POST",
@@ -282,19 +263,32 @@ const Questions = ({ params }: { params: { id: string } }) => {
         }),
       });
 
-      if (response.ok) {
+      const responseNilai = await fetch("/api/nilai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: session?.user?.id,
+          assessmentId: params.id,
+          nilai: calculatedScore,
+        }),
+      });
+
+      if (response.ok && responseNilai.ok) {
         toast({
           title: "Success",
           description: "Jawaban berhasil disubmit!",
           variant: "default",
         });
-        await submitScore(nilai);
+        router.push("/dashboard");
       } else {
         toast({
           title: "Error",
           description: "Jawaban gagal disubmit",
           variant: "destructive",
         });
+        setLoading(false);
       }
     } catch (error) {
       toast({
@@ -302,35 +296,10 @@ const Questions = ({ params }: { params: { id: string } }) => {
         description: "Terjadi error: " + error + " saat disubmit!",
         variant: "destructive",
       });
+      setLoading(false);
     } finally {
       setLoading(false);
     }
-  };
-
-  console.log(answers);
-  console.log(nilai);
-
-  const handleQuestionClick = (index: number) => {
-    setCurrentQuestionIndex(index);
-    const currentQuestion = value[currentQuestionIndex];
-    const selectedAnswer = form.getValues("answer");
-
-    setAnswers((prevResponse) => {
-      const existingAnswerIndex = Object.keys(prevResponse).findIndex(
-        (key) => key === currentQuestion.id.toString()
-      );
-      if (existingAnswerIndex >= 0) {
-        const updatedResponse = { ...prevResponse };
-        updatedResponse[currentQuestion.id.toString()] = selectedAnswer;
-        return updatedResponse;
-      } else {
-        return {
-          ...prevResponse,
-          [currentQuestion.id.toString()]: selectedAnswer,
-        };
-      }
-    });
-    // form.reset();
   };
 
   if (!value) {

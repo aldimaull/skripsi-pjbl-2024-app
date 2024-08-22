@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import NoSession from "@/components/error/NoSession";
+import ButtonBack from "@/components/ui/ButtonBack";
 
 const Project = async () => {
   const session = await getServerSession(authOptions);
@@ -13,6 +14,7 @@ const Project = async () => {
   if (session?.user) {
     return (
       <>
+        <ButtonBack />
         <h1 className="mb-2 lg:mb-4 font-serif tracking-wide">
           Daftar Project Anda
         </h1>

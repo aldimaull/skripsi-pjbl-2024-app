@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       data: {
         userId: parseInt(userId),
         assessmentId: parseInt(assessmentId),
-        nilaiAssessment: parseInt(nilai),
+        nilaiAssessment: nilai,
       },
     });
 

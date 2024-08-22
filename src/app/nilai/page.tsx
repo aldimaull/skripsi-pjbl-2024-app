@@ -20,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { ZodNumberDef } from "zod";
+import ButtonBack from "@/components/ui/ButtonBack";
 
 type Response = {
   id: number;
@@ -178,7 +179,6 @@ async function TableNilai() {
       <TableHeader>
         <TableRow>
           <TableHead>No.</TableHead>
-          <TableHead>Nama</TableHead>
           <TableHead>Assessment</TableHead>
           <TableHead>Hasil</TableHead>
           <TableHead>Lihat Jawaban</TableHead>
@@ -192,14 +192,8 @@ async function TableNilai() {
           return (
             <TableRow key={userId}>
               <TableCell className="font-medium">{index + 1}</TableCell>
-              <TableCell>{responses[index].user.name}</TableCell>{" "}
-              {/* Nama bisa diganti sesuai data user */}
-              <TableCell>
-                {userAssessment?.assessment.title || "N/A"}
-              </TableCell>{" "}
-              {/* Nama assessment bisa diganti sesuai data */}
-              <TableCell>{userAssessment?.nilaiAssessment}</TableCell>{" "}
-              {/* Nilai bisa diganti sesuai data */}
+              <TableCell>{userAssessment?.assessment.title || "N/A"}</TableCell>
+              <TableCell>{userAssessment?.nilaiAssessment}</TableCell>
               <TableCell>
                 <DialogDemo
                   jawaban={responses.map((response) => response.selectedOption)}
@@ -217,7 +211,8 @@ async function TableNilai() {
 const page = () => {
   return (
     <div>
-      <h1 className="font-serif tracking-wide">Materi</h1>
+      <ButtonBack />
+      <h1 className="font-serif tracking-wide">Nilai</h1>
       <TableNilai />
     </div>
   );

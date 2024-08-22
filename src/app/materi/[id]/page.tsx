@@ -5,6 +5,7 @@ import NoSession from "@/components/error/NoSession";
 import { db } from "@/lib/db";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
+import ButtonBack from "@/components/ui/ButtonBack";
 
 const options = {
   mdxOptions: {
@@ -24,6 +25,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (session?.user) {
     return (
       <>
+        <ButtonBack />
         <h1 className="font-serif tracking-wide">Materi</h1>
         <article>
           <MDXRemote source={mdx?.content ?? ""} options={options} />

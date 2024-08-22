@@ -224,10 +224,15 @@ export const Assessment = async () => {
     <div>
       <CardDashboard title={cardTitle}>
         {assessment.map((assessment, index) => {
-          const isSubmitted =
-            userProject &&
-            userProject.status === "FINISHED" &&
-            nilai.length === 0;
+          let isSubmitted = false;
+
+          if (userProject?.status === "FINISHED") {
+            isSubmitted = nilai.length > 0;
+          } else if (userProject?.status === "SUBMITTED") {
+            isSubmitted = true;
+          } else if (!userProject) {
+            isSubmitted = true;
+          }
           return (
             <Card key={index} className={`bg-secondary ${classes}`}>
               <CardHeader>
@@ -237,11 +242,7 @@ export const Assessment = async () => {
                 </CardDescription>
               </CardHeader>
               <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
-                <Button
-                  variant="outline"
-                  size="md"
-                  disabled={isSubmitted ?? false}
-                >
+                <Button variant="outline" size="md" disabled={isSubmitted}>
                   <Link href={`\\assessment\\${assessment.id}`}>Kerjakan</Link>
                 </Button>
               </CardFooter>
