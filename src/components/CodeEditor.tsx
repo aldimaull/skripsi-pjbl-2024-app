@@ -56,13 +56,10 @@ const CodeEditor = ({
 
     if (response.ok) {
       alert(`Code from editor ${id} saved successfully!`);
+      location.reload();
     } else {
       alert(`Failed to save code from editor ${id}.`);
     }
-  };
-
-  const handleRefresh = () => {
-    router.refresh();
   };
 
   return (
@@ -87,9 +84,6 @@ const CodeEditor = ({
       <CodeOutput editorRef={editorRef} language="javascript" />
       <Button onClick={handleSubmit} className="mt-2">
         Simpan Kode
-      </Button>
-      <Button onClick={handleRefresh} className="mt-2 ml-2">
-        Refresh
       </Button>
     </div>
   );
