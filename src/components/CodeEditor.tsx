@@ -3,6 +3,7 @@ import { Editor } from "@monaco-editor/react";
 import { useState, useEffect, useRef, ReactNode } from "react";
 import CodeOutput from "./CodeOutput";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 const CodeEditor = ({
   id,
@@ -17,6 +18,7 @@ const CodeEditor = ({
 }) => {
   const editorRef = useRef();
   const [value, setValue] = useState<string | undefined>("// coba");
+  const router = useRouter();
 
   const onMount = (editor: any) => {
     editorRef.current = editor;
@@ -59,6 +61,10 @@ const CodeEditor = ({
     }
   };
 
+  const handleRefresh = () => {
+    router.refresh();
+  };
+
   return (
     <div>
       <div className="mb-2">{children}</div>
@@ -81,6 +87,9 @@ const CodeEditor = ({
       <CodeOutput editorRef={editorRef} language="javascript" />
       <Button onClick={handleSubmit} className="mt-2">
         Simpan Kode
+      </Button>
+      <Button onClick={handleRefresh} className="mt-2 ml-2">
+        Refresh
       </Button>
     </div>
   );
