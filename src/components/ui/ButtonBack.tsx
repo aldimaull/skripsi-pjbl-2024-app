@@ -11,7 +11,7 @@ const ButtonBack = () => {
       onClick={() => router.back()}
       variant="secondary"
       size="md"
-      className="mb-4"
+      className="my-2"
     >
       Kembali
     </Button>

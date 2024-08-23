@@ -109,6 +109,9 @@
         @apply overflow-x-scroll;
       }
     }
+    iframe {
+      @apply items-center rounded-lg my-4;
+    }
   }
 }
 

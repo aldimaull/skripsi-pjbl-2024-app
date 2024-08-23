@@ -25,8 +25,8 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (session?.user) {
     return (
       <>
-        <ButtonBack />
         <h1 className="font-serif tracking-wide">Materi</h1>
+        <ButtonBack />
         <article>
           <MDXRemote source={mdx?.content ?? ""} options={options} />
         </article>

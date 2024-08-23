@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Project from "@/components/projects/palindrom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSession } from "next-auth/react";
+import ButtonBack from "@/components/ui/ButtonBack";
 
 type Project = {
   id: number;
@@ -62,6 +63,7 @@ export default function MulaiProject({
       <h1 className="mb-4 text-primary font-serif tracking-wide">
         Detail Project
       </h1>
+      <ButtonBack />
 
       <div className="space-y-4 mb-4">
         <h2 className="mb-2 font-semibold">{projects?.name}</h2>
