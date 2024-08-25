@@ -1,14 +1,13 @@
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import React from "react";
-import {
-  Materi,
-  Project,
-  Nilai,
-  TookProject,
-  Assessment,
-} from "@/components/card/CardDashboard";
+import Assessment from "@/components/DashboardComponents/Assessment";
+import Materi from "@/components/DashboardComponents/Materi";
+import Nilai from "@/components/DashboardComponents/Nilai";
+import Project from "@/components/DashboardComponents/Project";
+import TookProject from "@/components/DashboardComponents/TookProject";
 import NoSession from "@/components/error/NoSession";
+import CardDashboard from "@/components/card/CardDashboard";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
@@ -23,11 +22,21 @@ const page = async () => {
           </span>
           !
         </h2>
-        <Nilai />
-        <TookProject />
-        <Assessment />
-        <Project />
-        <Materi />
+        <CardDashboard title="Nilai">
+          <Nilai />
+        </CardDashboard>
+        <CardDashboard title="Project yang Sedang Dikerjakan">
+          <TookProject />
+        </CardDashboard>
+        <CardDashboard title="Assessment">
+          <Assessment />
+        </CardDashboard>
+        <CardDashboard title="Project">
+          <Project />
+        </CardDashboard>
+        <CardDashboard title="Materi">
+          <Materi />
+        </CardDashboard>
       </>
     );
   }
