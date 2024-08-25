@@ -60,9 +60,7 @@ export default function MulaiProject({
 
   return (
     <>
-      <h1 className="mb-4 text-primary font-serif tracking-wide">
-        Detail Project
-      </h1>
+      <h1 className="text-primary font-serif tracking-wide">Detail Project</h1>
       <ButtonBack />
 
       <div className="space-y-4 mb-4">

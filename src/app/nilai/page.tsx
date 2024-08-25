@@ -211,8 +211,8 @@ async function TableNilai() {
 const page = () => {
   return (
     <div>
-      <ButtonBack />
       <h1 className="font-serif tracking-wide">Nilai</h1>
+      <ButtonBack />
       <TableNilai />
     </div>
   );
