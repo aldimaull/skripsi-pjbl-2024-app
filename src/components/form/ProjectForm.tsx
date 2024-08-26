@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/popover";
 
 import { slugify } from "@/lib/utils";
+import Tiptap from "../tiptap/Tiptap";
 
 interface ProjectFormProps {
   namaProject: string;
@@ -77,6 +78,10 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
 }) => {
   const { toast } = useToast();
   const router = useRouter();
+  const [content, setContent] = React.useState<string>("");
+  const handleContentChange = (newContent: string) => {
+    setContent(newContent);
+  };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const response = await fetch("/api/project", {
@@ -229,6 +234,10 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
             )}
           />
         </div>
+        <Tiptap
+          content={content}
+          onChange={(newContent: string) => handleContentChange(newContent)}
+        />
         <Button type="submit">Mulai Project!</Button>
       </form>
     </Form>

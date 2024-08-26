@@ -32,7 +32,7 @@ const Assessment = async () => {
   });
 
   return (
-    <div>
+    <>
       <>
         {assessment.map((assessment, index) => {
           let isSubmitted = nilai.some(
@@ -66,16 +66,7 @@ const Assessment = async () => {
           );
         })}
       </>
-      <p>
-        Semua nilai assessment bisa dilihat{" "}
-        <Link
-          href="/nilai"
-          className="font-bold underline underline-offset-4 hover:text-primary"
-        >
-          di laman ini
-        </Link>
-      </p>
-    </div>
+    </>
   );
 };
 
