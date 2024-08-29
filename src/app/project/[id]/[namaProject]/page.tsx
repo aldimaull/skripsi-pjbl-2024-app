@@ -5,6 +5,8 @@ import Project from "@/components/projects/palindrom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSession } from "next-auth/react";
 import ButtonBack from "@/components/ui/ButtonBack";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypeHighlight from "rehype-highlight";
 
 type Project = {
   id: number;
@@ -14,6 +16,13 @@ type Project = {
   content: string;
   createdAt: Date;
   updateAt: Date;
+};
+
+const options = {
+  mdxOptions: {
+    remarkPlugins: [],
+    rehypePlugins: [rehypeHighlight],
+  },
 };
 
 export default function MulaiProject({
@@ -65,9 +74,9 @@ export default function MulaiProject({
 
       <div className="space-y-4 mb-4">
         <h2 className="mb-2 font-semibold">{projects?.name}</h2>
-        <p className="bg-secondary px-5 py-6 rounded-md text-sm lg:text-base">
-          {projects?.content}
-        </p>
+        <article className="bg-secondary px-5 py-5 rounded-md text-sm lg:text-base">
+          <MDXRemote source={projects?.content ?? ""} options={options} />
+        </article>
       </div>
       <Project userId={session?.user.id ?? ""} projectId={projects?.id ?? 0} />
     </>

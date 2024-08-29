@@ -49,6 +49,7 @@ model TookProject {
   deadlineTo    DateTime
   submission    String
   status        String
+  rencana       String
   createdAt     DateTime @default(now())
   updateAt      DateTime @updatedAt
   project       ProjectList      @relation(fields: [projectId], references:   [id])

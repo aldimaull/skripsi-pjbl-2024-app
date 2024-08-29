@@ -3,10 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { id, deadlineFrom, deadlineTo, user, submission, status } =
+    const { id, deadlineFrom, deadlineTo, user, submission, status, rencana } =
       await req.json();
     const userInt = parseInt(user);
     const projectInt = parseInt(id);
+    console.log({
+      id,
+      deadlineFrom,
+      deadlineTo,
+      user,
+      submission,
+      status,
+      rencana,
+    });
 
     const newProject = await db.tookProject.create({
       data: {
@@ -16,6 +25,7 @@ export async function POST(req: Request) {
         deadlineTo,
         submission,
         status,
+        rencana: rencana,
       },
     });
 
@@ -24,6 +34,7 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (error) {
+    console.error("Error saat membuat tookProject:", error);
     return NextResponse.json({ message: "Gagal mendaftar" }, { status: 500 });
   }
 }

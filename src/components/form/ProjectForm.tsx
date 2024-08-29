@@ -69,6 +69,7 @@ const formSchema = z.object({
     .string()
     .min(1, { message: "Terlalu pendek, minimal 1 karakter" })
     .max(50, { message: "Terlalu panjang, maksimal 50 karakter" }),
+  rencana: z.string(),
 });
 
 const ProjectForm: React.FC<ProjectFormProps> = ({
@@ -94,8 +95,9 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
         user: values.user,
         deadlineFrom: values.deadline.from,
         deadlineTo: values.deadline.to,
-        submission: "kosong",
+        submission: "// kosong",
         status: "SUBMITTED",
+        rencana: content,
       }),
     });
 
@@ -134,6 +136,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
         to: new Date(date.setDate(date.getDate() + 7)),
       },
       user: userId.user.id,
+      rencana: content,
     },
   });
 
@@ -234,9 +237,24 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
             )}
           />
         </div>
-        <Tiptap
-          content={content}
-          onChange={(newContent: string) => handleContentChange(newContent)}
+        <FormField
+          control={form.control}
+          name="rencana"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Rencana Project</FormLabel>
+              <FormControl>
+                <Tiptap
+                  content={content}
+                  onChange={(newContent: string) =>
+                    handleContentChange(newContent)
+                  }
+                />
+              </FormControl>
+              <FormDescription>Rencana Project</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <Button type="submit">Mulai Project!</Button>
       </form>

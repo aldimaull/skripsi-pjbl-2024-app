@@ -17,7 +17,7 @@ export default async function Project({ params }: { params: { id: string } }) {
   if (session?.user) {
     return (
       <>
-        <h1 className="mb-4 text-primary font-serif tracking-wide">
+        <h1 className="text-primary font-serif tracking-wide">
           Detail Project
         </h1>
         <ButtonBack />

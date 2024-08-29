@@ -27,7 +27,7 @@ const Toolbar = ({ editor, content }: Props) => {
   return (
     <div
       className="px-4 py-3 rounded-tl-md rounded-tr-md flex justify-between items-start
-    gap-5 w-full flex-wrap border border-gray-700"
+    gap-5 w-full flex-wrap border border-input"
     >
       <div className="flex justify-start items-center gap-5 w-full lg:w-10/12 flex-wrap ">
         <button
@@ -138,7 +138,7 @@ const Toolbar = ({ editor, content }: Props) => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            editor.chain().focus().setCode().run();
+            editor.chain().focus().toggleCode().run();
           }}
           className={
             editor.isActive("code")
