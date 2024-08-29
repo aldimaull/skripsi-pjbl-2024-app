@@ -31,12 +31,8 @@ const page = async () => {
         <CardDashboard title="Assessment">
           <Assessment />
         </CardDashboard>
-
         <CardDashboard title="Project">
           <Project />
-        </CardDashboard>
-        <CardDashboard title="Materi">
-          <Materi />
         </CardDashboard>
       </>
     );

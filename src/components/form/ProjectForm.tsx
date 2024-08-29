@@ -95,7 +95,6 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
         user: values.user,
         deadlineFrom: values.deadline.from,
         deadlineTo: values.deadline.to,
-        submission: "// kosong",
         status: "SUBMITTED",
         rencana: content,
       }),

@@ -47,7 +47,7 @@ model TookProject {
   userId        Int
   deadlineFrom  DateTime
   deadlineTo    DateTime
-  submission    String
+  submission    String?
   status        String
   rencana       String
   createdAt     DateTime @default(now())

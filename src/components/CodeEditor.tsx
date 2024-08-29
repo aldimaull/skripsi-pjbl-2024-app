@@ -36,14 +36,15 @@ const CodeEditor = ({
 
       if (response.ok) {
         const data = await response.json();
-        setValue(data.data.submission);
+        if (data.data.submission) {
+          setValue(data.data.submission);
+        }
       } else {
         console.error("Failed to fetch code");
       }
     };
-
     fetchData();
-  }, [projectId, userId]);
+  });
 
   const handleSubmit = async () => {
     const response = await fetch("/api/saveCode", {

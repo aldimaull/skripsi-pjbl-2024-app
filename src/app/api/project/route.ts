@@ -3,19 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { id, deadlineFrom, deadlineTo, user, submission, status, rencana } =
+    const { id, deadlineFrom, deadlineTo, user, status, rencana } =
       await req.json();
     const userInt = parseInt(user);
     const projectInt = parseInt(id);
-    console.log({
-      id,
-      deadlineFrom,
-      deadlineTo,
-      user,
-      submission,
-      status,
-      rencana,
-    });
 
     const newProject = await db.tookProject.create({
       data: {
@@ -23,7 +14,6 @@ export async function POST(req: Request) {
         userId: userInt,
         deadlineFrom,
         deadlineTo,
-        submission,
         status,
         rencana: rencana,
       },
