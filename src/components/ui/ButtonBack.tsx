@@ -9,7 +9,7 @@ const ButtonBack = () => {
   return (
     <Button
       onClick={() => {
-        router.back();
+        router.push("/user");
         router.refresh();
       }}
       variant="secondary"

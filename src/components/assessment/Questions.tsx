@@ -281,7 +281,7 @@ const Questions = ({ params }: { params: { id: string } }) => {
           description: "Jawaban berhasil disubmit!",
           variant: "default",
         });
-        router.push("/dashboard");
+        router.push("/nilai");
       } else {
         toast({
           title: "Error",
