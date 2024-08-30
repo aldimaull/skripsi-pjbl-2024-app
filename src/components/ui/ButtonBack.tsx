@@ -8,7 +8,10 @@ const ButtonBack = () => {
   const router = useRouter();
   return (
     <Button
-      onClick={() => router.back()}
+      onClick={() => {
+        router.back();
+        router.refresh();
+      }}
       variant="secondary"
       size="md"
       className="my-2"
