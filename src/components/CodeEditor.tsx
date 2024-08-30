@@ -3,7 +3,6 @@ import { Editor } from "@monaco-editor/react";
 import { useState, useEffect, useRef, ReactNode } from "react";
 import CodeOutput from "./CodeOutput";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
 
 const CodeEditor = ({
   id,
@@ -18,7 +17,6 @@ const CodeEditor = ({
 }) => {
   const editorRef = useRef();
   const [value, setValue] = useState<string | undefined>("// coba");
-  const router = useRouter();
 
   const onMount = (editor: any) => {
     editorRef.current = editor;
