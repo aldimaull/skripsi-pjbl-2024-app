@@ -10,9 +10,6 @@ export async function middleware(request: NextRequest) {
 
   const token = await getToken({ req: request });
 
-  console.log("Token:", token);
-  console.log("Role:", token?.role);
-  console.log("Pathname:", request.nextUrl.pathname);
   if (!token) return;
 
   // Check the role and redirect based on the role

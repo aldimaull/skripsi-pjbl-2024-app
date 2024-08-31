@@ -2,7 +2,6 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import React from "react";
 import Assessment from "@/components/DashboardComponents/Assessment";
-import Materi from "@/components/DashboardComponents/Materi";
 import Nilai from "@/components/DashboardComponents/Nilai";
 import Project from "@/components/DashboardComponents/Project";
 import TookProject from "@/components/DashboardComponents/TookProject";
