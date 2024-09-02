@@ -42,7 +42,7 @@ const CodeEditor = ({
       }
     };
     fetchData();
-  });
+  }, [projectId, userId]);
 
   const handleSubmit = async () => {
     const response = await fetch("/api/saveCode", {

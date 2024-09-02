@@ -18,21 +18,6 @@ export default function ClientComponentExample({
           lagi untuk menyimpan suhu dalam Fahrenheit, Reamur, dan Kelvin.
         </p>
       </CodeEditor>
-      <CodeEditor id="2" userId={userId} projectId={projectId}>
-        <p>Gunakan rumus untuk mengonversi suhu dari Celsius ke Fahrenheit</p>
-      </CodeEditor>
-      <CodeEditor id="3" userId={userId} projectId={projectId}>
-        <p>Gunakan rumus untuk mengonversi suhu dari Celsius ke Reamur</p>
-      </CodeEditor>
-      <CodeEditor id="4" userId={userId} projectId={projectId}>
-        <p>Gunakan rumus untuk mengonversi suhu dari Celsius ke Kelvin</p>
-      </CodeEditor>
-      <CodeEditor id="5" userId={userId} projectId={projectId}>
-        <p>
-          Gunakan rumus untuk mengonversi suhu masing-masing dari Fahrenheit,
-          Reamur, dan Kelvin ke Celcius
-        </p>
-      </CodeEditor>
     </div>
   );
 }
