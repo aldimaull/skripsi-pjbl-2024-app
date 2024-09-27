@@ -145,7 +145,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 pb-80">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
         <div className="flex space-x-0 flex-col lg:flex-row lg:justify-start lg:space-x-2 space-y-2 lg:space-y-0">
           <FormField
             control={form.control}

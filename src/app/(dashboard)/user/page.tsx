@@ -1,7 +1,8 @@
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import React from "react";
-import Assessment from "@/components/DashboardComponents/Assessment";
+import Pretest from "@/components/DashboardComponents/Pretest";
+import Posttest from "@/components/DashboardComponents/Posttest";
 import Nilai from "@/components/DashboardComponents/Nilai";
 import Project from "@/components/DashboardComponents/Project";
 import TookProject from "@/components/DashboardComponents/TookProject";
@@ -24,14 +25,17 @@ const page = async () => {
         <CardDashboard title="Nilai">
           <Nilai />
         </CardDashboard>
-        <CardDashboard title="Project yang Sedang Dikerjakan">
-          <TookProject />
-        </CardDashboard>
-        <CardDashboard title="Assessment">
-          <Assessment />
+        <CardDashboard title="Pre Test">
+          <Pretest />
         </CardDashboard>
         <CardDashboard title="Project">
           <Project />
+        </CardDashboard>
+        <CardDashboard title="Project yang Sedang Dikerjakan">
+          <TookProject />
+        </CardDashboard>
+        <CardDashboard title="Post Test">
+          <Posttest />
         </CardDashboard>
       </>
     );

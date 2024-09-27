@@ -15,6 +15,11 @@ enum UserRole {
   GURU
 }
 
+enum AssessmentCategory {
+  PRETEST
+  POSTTEST
+}
+
 model User {
   id            Int      @id @unique @default(autoincrement())
   username      String   @unique @db.VarChar(255)
@@ -72,6 +77,7 @@ model Assessment {
   id            Int      @id @default(autoincrement())
   title         String
   description   String
+  category      AssessmentCategory
   questions     Question[]
   nilai         Nilai[]
   createdAt     DateTime @default(now())

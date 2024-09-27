@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -19,69 +17,17 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
-import { ZodNumberDef } from "zod";
 import ButtonBack from "@/components/ui/ButtonBack";
-
-type Response = {
-  id: number;
-  questionId: number;
-  userId: number;
-  user: {
-    id: number;
-    username: string;
-    password: string;
-    name: string;
-  };
-  selectedOption: string;
-};
-
-type Nilai = {
-  assessment: {
-    id: number;
-    title: string;
-    description: string;
-  };
-  id: number;
-  assessmentId: number;
-  userId: number;
-  nilaiAssessment: number;
-};
-
-type Questions = {
-  id: number;
-  content: string;
-  assessmentId: number;
-  options: string[];
-  kunci: string;
-};
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 async function DialogDemo({
   jawaban,
-  index,
+  pertanyaan,
 }: {
   jawaban: string[];
-  index: number;
+  pertanyaan: any;
 }) {
-  const [questions, setQuestions] = useState<Questions[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/questions?id=${index}`, {
-          method: "GET",
-        });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const result = await response.json();
-        console.log(result.data);
-        setQuestions(result.data);
-      } catch (error) {
-        console.error("gagal");
-      }
-    };
-    fetchData();
-  }, [index]);
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -101,7 +47,7 @@ async function DialogDemo({
             </ul>
             <p className="mt-4 font-bold">Pertanyaan dan Kunci Jawaban</p>
             <ul>
-              {questions.map((question: Questions, index: number) => (
+              {pertanyaan.map((question: any, index: number) => (
                 <li key={index} className="my-2">
                   <span>{index + 1}. </span>
                   {question.content}
@@ -118,61 +64,24 @@ async function DialogDemo({
 }
 
 async function TableNilai() {
-  const [responses, setResponses] = useState<Response[]>([]);
-  const [groupedResponses, setGroupedResponses] = useState<
-    Record<number, Response[]>
-  >({});
-  const [assessment, setAssessment] = useState<Nilai[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/responses/`, {
-          method: "GET",
-        });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const result = await response.json();
-        setResponses(result.data);
-
-        const grouped = result.data.reduce(
-          (acc: Record<number, Response[]>, current: Response) => {
-            if (!acc[current.userId]) {
-              acc[current.userId] = [];
-            }
-            acc[current.userId].push(current);
-            return acc;
-          },
-          {}
-        );
-
-        setGroupedResponses(grouped);
-      } catch (error) {
-        console.error("gagal");
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/nilai/`, {
-          method: "GET",
-        });
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const result = await response.json();
-        console.log(result.data);
-        setAssessment(result.data);
-      } catch (error) {
-        console.error("gagal");
-      }
-    };
-    fetchData();
-  }, []);
+  const session = await getServerSession(authOptions);
+  const user: number = Number(session?.user.id);
+  const responses = await db.response.findMany({
+    where: {
+      userId: user,
+    },
+    include: {
+      question: true,
+    },
+  });
+  const abc = await db.nilai.findMany({
+    where: {
+      userId: user,
+    },
+    include: {
+      assessment: true,
+    },
+  });
 
   return (
     <Table>
@@ -185,19 +94,23 @@ async function TableNilai() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {Object.entries(groupedResponses).map(([userId, responses], index) => {
-          const userAssessment = assessment.find(
-            (a) => a.userId === parseInt(userId)
+        {abc.map((abcs, index) => {
+          const filteredResponses = responses.filter(
+            (response) => response.question.assessmentId === abcs.assessmentId
           );
           return (
-            <TableRow key={userId}>
+            <TableRow key={index}>
               <TableCell className="font-medium">{index + 1}</TableCell>
-              <TableCell>{userAssessment?.assessment.title || "N/A"}</TableCell>
-              <TableCell>{userAssessment?.nilaiAssessment}</TableCell>
+              <TableCell>{abcs.assessment.title}</TableCell>
+              <TableCell>{abcs.nilaiAssessment}</TableCell>
               <TableCell>
                 <DialogDemo
-                  jawaban={responses.map((response) => response.selectedOption)}
-                  index={userAssessment?.assessmentId ?? 0}
+                  jawaban={filteredResponses.map(
+                    (response) => response.selectedOption
+                  )}
+                  pertanyaan={filteredResponses.map(
+                    (response) => response.question
+                  )}
                 />
               </TableCell>
             </TableRow>

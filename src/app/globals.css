@@ -93,6 +93,22 @@
       @apply text-primary;
     }
 
+    ul {
+      @apply pl-4 space-y-2 marker:text-primary list-disc;
+    }
+
+    ol {
+      @apply pl-4 space-y-2 list-decimal marker:text-primary marker:font-bold;
+    }
+
+    .tiptap p.is-editor-empty:first-child::before {
+      color: #adb5bd;
+      content: attr(data-placeholder);
+      float: left;
+      height: 0;
+      pointer-events: none;
+    }
+
     blockquote::after {
       content: "”";
       font-size: 2rem;

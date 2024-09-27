@@ -37,6 +37,7 @@
     "@tiptap/extension-document": "^2.5.8",
     "@tiptap/extension-highlight": "^2.5.8",
     "@tiptap/extension-paragraph": "^2.5.8",
+    "@tiptap/extension-placeholder": "^2.7.3",
     "@tiptap/extension-text": "^2.5.8",
     "@tiptap/extension-text-align": "^2.5.8",
     "@tiptap/extension-typography": "^2.5.8",

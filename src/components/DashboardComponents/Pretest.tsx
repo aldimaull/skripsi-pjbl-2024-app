@@ -14,17 +14,15 @@ import { getServerSession } from "next-auth";
 
 const Assessment = async () => {
   const assessment = await db.assessment.findMany({
+    where: {
+      category: "PRETEST",
+    },
     orderBy: {
       createdAt: "asc",
     },
   });
   const session = await getServerSession(authOptions);
   const user: number = Number(session?.user.id);
-  const userProject = await db.tookProject.findFirst({
-    where: {
-      userId: user,
-    },
-  });
   const nilai = await db.nilai.findMany({
     where: {
       userId: user,
@@ -35,17 +33,11 @@ const Assessment = async () => {
     <>
       <>
         {assessment.map((assessment, index) => {
-          let isSubmitted = nilai.some(
-            (nilaiItem) => nilaiItem.userId === user
+          const hasNilai = nilai.some(
+            (nilai) => nilai.assessmentId === assessment.id
           );
+          const isSubmitted = hasNilai;
 
-          if (userProject?.status === "FINISHED") {
-            isSubmitted = nilai.length > 0;
-          } else if (userProject?.status === "SUBMITTED") {
-            isSubmitted = true;
-          } else if (!userProject) {
-            isSubmitted = true;
-          }
           return (
             <Card
               key={index}

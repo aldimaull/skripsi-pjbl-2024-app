@@ -2,18 +2,14 @@ import React from "react";
 import { type Editor } from "@tiptap/react";
 import {
   TextB,
-  TextStrikethrough,
   TextAUnderline,
   TextItalic,
   List,
   ListNumbers,
-  TextHTwo,
-  Quotes,
   ArrowCounterClockwise,
   ArrowClockwise,
   Code,
 } from "@phosphor-icons/react";
-import Underline from "@tiptap/extension-underline";
 
 type Props = {
   editor: Editor | null;
@@ -72,33 +68,6 @@ const Toolbar = ({ editor, content }: Props) => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            editor.chain().focus().toggleStrike().run();
-          }}
-          className={
-            editor.isActive("strike")
-              ? "bg-primary text-white p-2 rounded-lg"
-              : "text-primary"
-          }
-        >
-          <TextStrikethrough className="w-5 h-5" />
-        </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            editor.chain().focus().toggleHeading({ level: 2 }).run();
-          }}
-          className={
-            editor.isActive("heading", { level: 2 })
-              ? "bg-primary text-white p-2 rounded-lg"
-              : "text-primary"
-          }
-        >
-          <TextHTwo className="w-5 h-5" />
-        </button>
-
-        <button
-          onClick={(e) => {
-            e.preventDefault();
             editor.chain().focus().toggleBulletList().run();
           }}
           className={
@@ -121,19 +90,6 @@ const Toolbar = ({ editor, content }: Props) => {
           }
         >
           <ListNumbers className="w-5 h-5" />
-        </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            editor.chain().focus().toggleBlockquote().run();
-          }}
-          className={
-            editor.isActive("blockquote")
-              ? "bg-primary text-white p-2 rounded-lg"
-              : "text-primary"
-          }
-        >
-          <Quotes className="w-5 h-5" />
         </button>
         <button
           onClick={(e) => {

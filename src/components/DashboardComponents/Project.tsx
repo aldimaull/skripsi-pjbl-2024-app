@@ -13,7 +13,6 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
 const Project = async () => {
-  const cardTitle: string = "Project";
   const project = await db.projectList.findMany();
   const session = await getServerSession(authOptions);
   const user: number = Number(session?.user.id);

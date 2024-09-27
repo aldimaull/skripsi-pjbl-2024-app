@@ -5,6 +5,25 @@ import NoSession from "@/components/error/NoSession";
 import ProjectForm from "@/components/form/ProjectForm";
 import { db } from "@/lib/db";
 import ButtonBack from "@/components/ui/ButtonBack";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypeHighlight from "rehype-highlight";
+import CardDashboard from "@/components/card/CardDashboard";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
+const options = {
+  mdxOptions: {
+    remarkPlugins: [],
+    rehypePlugins: [rehypeHighlight],
+  },
+};
 
 export default async function Project({ params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
@@ -13,6 +32,7 @@ export default async function Project({ params }: { params: { id: string } }) {
       id: parseInt(params.id, 10),
     },
   });
+  const materi = await db.materiList.findMany();
 
   if (session?.user) {
     return (
@@ -24,9 +44,31 @@ export default async function Project({ params }: { params: { id: string } }) {
         {projects.map((project, index) => (
           <div key={index} className="space-y-4 ">
             <h2 className="mb-2 font-semibold">{project.name}</h2>
-            <p className="bg-secondary px-5 py-6 rounded-md">
-              {project.content}
-            </p>
+            <article className="bg-secondary px-5 py-6 rounded-md">
+              <MDXRemote source={project?.content ?? ""} options={options} />
+            </article>
+            <CardDashboard title="Materi">
+              {materi?.map((materi: any, index: any) => (
+                <Card
+                  key={index}
+                  className={`bg-secondary flex flex-col justify-between lg:basis-1/2 shrink-0 my-2 max-w-full`}
+                >
+                  <CardHeader>
+                    <CardTitle>{materi.name}</CardTitle>
+                    <CardDescription className="line-clamp-2">
+                      {materi.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardFooter>
+                    <Link href={`/materi/${materi.id}`}>
+                      <Button variant="outline" size="md">
+                        Lihat Materi
+                      </Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
+              ))}
+            </CardDashboard>
             <ProjectForm
               idProject={project.id.toString()}
               namaProject={project.name}
