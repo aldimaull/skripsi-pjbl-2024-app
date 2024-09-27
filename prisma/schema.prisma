@@ -77,7 +77,7 @@ model Assessment {
   id            Int      @id @default(autoincrement())
   title         String
   description   String
-  category      AssessmentCategory
+  category      AssessmentCategory?
   questions     Question[]
   nilai         Nilai[]
   createdAt     DateTime @default(now())
