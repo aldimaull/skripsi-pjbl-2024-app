@@ -22,19 +22,19 @@ const page = async () => {
           </span>
           !
         </h2>
-        <CardDashboard title="Nilai">
+        <CardDashboard title="💯 Nilai">
           <Nilai />
         </CardDashboard>
-        <CardDashboard title="Pre Test">
+        <CardDashboard title="☑️ Pre Test">
           <Pretest />
         </CardDashboard>
-        <CardDashboard title="Project">
+        <CardDashboard title="📚 Project dan Materi">
           <Project />
         </CardDashboard>
-        <CardDashboard title="Project yang Sedang Dikerjakan">
+        <CardDashboard title="📑 Project yang Sedang Dikerjakan">
           <TookProject />
         </CardDashboard>
-        <CardDashboard title="Post Test">
+        <CardDashboard title="✅ Post Test">
           <Posttest />
         </CardDashboard>
       </>

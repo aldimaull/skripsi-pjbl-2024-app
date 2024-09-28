@@ -89,6 +89,7 @@ async function TableNilai() {
         <TableRow>
           <TableHead>No.</TableHead>
           <TableHead>Assessment</TableHead>
+          <TableHead>Kategori</TableHead>
           <TableHead>Hasil</TableHead>
           <TableHead>Lihat Jawaban</TableHead>
         </TableRow>
@@ -102,6 +103,7 @@ async function TableNilai() {
             <TableRow key={index}>
               <TableCell className="font-medium">{index + 1}</TableCell>
               <TableCell>{abcs.assessment.title}</TableCell>
+              <TableCell>{abcs.assessment.category}</TableCell>
               <TableCell>{abcs.nilaiAssessment}</TableCell>
               <TableCell>
                 <DialogDemo

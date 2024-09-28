@@ -2,6 +2,7 @@ import React from "react";
 import {
   Card,
   CardDescription,
+  CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -49,6 +50,9 @@ const Assessment = async () => {
                   {assessment.description}
                 </CardDescription>
               </CardHeader>
+              <CardContent className="font-bold text-green-600 dark:text-green-500">
+                {isSubmitted && "✔ Sudah dikerjakan"}
+              </CardContent>
               <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
                 <Button variant="outline" size="md" disabled={isSubmitted}>
                   <Link href={`\\assessment\\${assessment.id}`}>Kerjakan</Link>
