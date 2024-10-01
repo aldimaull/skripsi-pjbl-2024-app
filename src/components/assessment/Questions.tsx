@@ -29,6 +29,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypeHighlight from "rehype-highlight";
 
 type Question = {
   id: number;
@@ -38,6 +40,13 @@ type Question = {
   options: string[];
   createdAt: Date;
   updateAt: Date;
+};
+
+const options = {
+  mdxOptions: {
+    remarkPlugins: [],
+    rehypePlugins: [rehypeHighlight],
+  },
 };
 
 const FormSchema = z.object({
@@ -323,7 +332,12 @@ const Questions = ({ params }: { params: { id: string } }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-base">
-                    {value[currentQuestionIndex].content}
+                    <article>
+                      <MDXRemote
+                        source={value[currentQuestionIndex].content}
+                        options={options}
+                      />
+                    </article>
                   </FormLabel>
                   <FormControl>
                     <RadioGroup
