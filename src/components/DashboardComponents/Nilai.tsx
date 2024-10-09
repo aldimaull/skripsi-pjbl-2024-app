@@ -35,11 +35,11 @@ const Nilai = async () => {
       </Card>
       <Card className="my-2 bg-secondary">
         <CardHeader>
-          <CardTitle>Nilai Assessment: </CardTitle>
+          <CardTitle>Review Assessment:</CardTitle>
         </CardHeader>
         <CardContent className="text-right font-black">
           <Button variant="outline" size="md">
-            <Link href="/nilai">List Nilai</Link>
+            <Link href="/nilai">Review</Link>
           </Button>
         </CardContent>
       </Card>
