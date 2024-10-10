@@ -150,6 +150,9 @@
       pre::-webkit-scrollbar {
         @apply overflow-x-scroll;
       }
+      strong {
+        @apply text-primary;
+      }
     }
     iframe {
       @apply items-center rounded-lg my-4;
