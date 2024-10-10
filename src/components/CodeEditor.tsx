@@ -80,7 +80,7 @@ const CodeEditor = ({
         onMount={onMount}
         value={value}
       />
-      <CodeOutput editorRef={editorRef} language="javascript" />
+      <CodeOutput editorRef={editorRef} language="cpp" />
       <Button onClick={handleSubmit} className="mt-2">
         Simpan Kode
       </Button>
