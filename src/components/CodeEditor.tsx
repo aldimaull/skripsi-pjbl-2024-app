@@ -66,7 +66,7 @@ const CodeEditor = ({
       <div className="mb-2">{children}</div>
       <Editor
         height="30vh"
-        defaultLanguage="javascript"
+        defaultLanguage="cpp"
         defaultValue={value}
         onChange={(value) => setValue(value)}
         theme="vs-dark"
