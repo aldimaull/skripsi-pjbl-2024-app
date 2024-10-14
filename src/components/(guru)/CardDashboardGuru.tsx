@@ -104,7 +104,7 @@ export const Assessment = async () => {
           <CardFooter className="flex-col items-start text-xs md:text-sm space-y-2">
             <Link href={`\\assessment\\${assessment.id}`}>
               <Button variant="outline" size="md">
-                Kerjakan
+                Lihat Assessment
               </Button>
             </Link>
           </CardFooter>
