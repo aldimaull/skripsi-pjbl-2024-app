@@ -8,6 +8,8 @@ import Project from "@/components/DashboardComponents/Project";
 import TookProject from "@/components/DashboardComponents/TookProject";
 import NoSession from "@/components/error/NoSession";
 import CardDashboard from "@/components/card/CardDashboard";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
@@ -22,6 +24,13 @@ const page = async () => {
           </span>
           !
         </h2>
+        <Link
+          href="/guide"
+        >
+          <Button className="mt-2">
+            Panduan Manual
+          </Button>
+        </Link>
         <CardDashboard title="💯 Nilai">
           <Nilai />
         </CardDashboard>

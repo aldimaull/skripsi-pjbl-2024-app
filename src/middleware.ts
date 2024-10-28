@@ -25,13 +25,18 @@ export async function middleware(request: NextRequest) {
         !request.nextUrl.pathname.startsWith("/assessment") &&
         !request.nextUrl.pathname.startsWith("/materi") &&
         !request.nextUrl.pathname.startsWith("/project") &&
-        !request.nextUrl.pathname.startsWith("/nilai")
+        !request.nextUrl.pathname.startsWith("/nilai") &&
+        !request.nextUrl.pathname.startsWith("/guide")
       ) {
         return NextResponse.redirect(new URL("/user", request.url));
       }
       break;
     case "GURU":
-      if (!request.nextUrl.pathname.startsWith("/guru")) {
+      if (
+        !request.nextUrl.pathname.startsWith("/guru") &&
+        !request.nextUrl.pathname.startsWith("/guide-guru") &&
+        !request.nextUrl.pathname.startsWith("/materi")
+    ) {
         return NextResponse.redirect(new URL("/guru", request.url));
       }
       break;

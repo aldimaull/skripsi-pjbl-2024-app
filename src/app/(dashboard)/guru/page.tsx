@@ -7,6 +7,8 @@ import {
   Assessment,
 } from "@/components/(guru)/CardDashboardGuru";
 import NoSession from "@/components/error/NoSession";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
@@ -23,6 +25,13 @@ const page = async () => {
           </span>
           !
         </h2>
+        <Link
+          href="/guide-guru"
+        >
+          <Button className="mt-2">
+            Panduan Manual
+          </Button>
+        </Link>
         <TableProjects />
         <Project />
         <Assessment />

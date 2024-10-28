@@ -26,8 +26,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.mdx",
     ".next/types/**/*.ts",
-    "src/app/login/_app.js"
-  ],
+    "src/app/login/_app.js"  ],
   "exclude": ["node_modules"]
 }

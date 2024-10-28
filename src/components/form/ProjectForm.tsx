@@ -132,7 +132,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
       id: idProject,
       deadline: {
         from: new Date(date.setDate(date.getDate())),
-        to: new Date(date.setDate(date.getDate() + 7)),
+        to: new Date(date.setDate(date.getDate() + 14)),
       },
       user: userId.user.id,
       rencana: content,
@@ -199,6 +199,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
                           "w-full lg:w-[300px] justify-start text-left font-normal",
                           !field.value && "text-muted-foreground"
                         )}
+                        disabled
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {field.value?.from ? (
